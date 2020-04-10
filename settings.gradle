@@ -1,2 +1,5 @@
 rootProject.name = 'ExpenseTracker-Backend'
+include 'AppServer'
+include 'ConsoleClient'
+include 'Shared'
 
