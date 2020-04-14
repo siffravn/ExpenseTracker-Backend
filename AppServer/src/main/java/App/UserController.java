@@ -6,6 +6,7 @@ import brugerautorisation.transport.rmi.Brugeradmin;
 import org.springframework.web.bind.annotation.*;
 
 import java.rmi.Naming;
+import java.util.Map;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -21,6 +22,19 @@ public class UserController {
         Brugeradmin admin = connectUserDB();
 
         Bruger bruger = admin.hentBruger("s173998", "kk29");
+
+        return new User(bruger);
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestBody Map<String, String> body) throws Exception {
+
+        String username = body.get("username");
+        String password = body.get("password");
+
+        Brugeradmin admin = connectUserDB();
+
+        Bruger bruger = admin.hentBruger(username, password);
 
         return new User(bruger);
     }
