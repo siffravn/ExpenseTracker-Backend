@@ -20,7 +20,7 @@ public class MockedExpenseData {
 
     public MockedExpenseData() {
         expenses = new ArrayList<>();
-        expenses.add(new Expense(400,"Ballade", new Date(), "Hovsa"));
+        expenses.add(new Expense(400,"Ballade", new Date().toString(), "Hovsa"));
     }
 
     public List<Expense> fetchExpenses() {return expenses;}
