@@ -6,10 +6,10 @@ import java.util.List;
 public class Expense {
     double amount;
     String category;
-    Date date;
+    String date;
     String note;
 
-    public  Expense(double amount, String category, Date date, String note) {
+    public  Expense(double amount, String category, String date, String note) {
         this.setAmount(amount);
         this.setCategory(category);
         this.setDate(date);
@@ -32,11 +32,11 @@ public class Expense {
         this.category = category;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
