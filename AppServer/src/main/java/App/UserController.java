@@ -39,6 +39,24 @@ public class UserController {
         return new User(bruger);
     }
 
+    @PostMapping("/user/{id}/password")
+    public User updatePassword(@PathVariable String id, @RequestBody Map<String, String> body) throws Exception {
+
+        String currentPassword = body.get("currentPassword");
+        String newPassword1 = body.get("newPassword");
+        String newPassword2 = body.get("newPasswordConfirmation");
+
+        if (newPassword1.equals(newPassword2)){
+
+            Brugeradmin admin = connectUserDB();
+            Bruger bruger = admin.ændrAdgangskode(id, currentPassword, newPassword1);
+
+            return new User(bruger);
+        }
+
+        return null;
+    }
+
     private Brugeradmin connectUserDB() throws Exception{
         return (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
     }
