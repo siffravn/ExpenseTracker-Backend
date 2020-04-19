@@ -5,11 +5,14 @@ import java.util.Date;
 
 public class Budget {
 
-    public ArrayList<Integer> budget;
+    public int budget;
     public Date date;
 
-
-    public void setBudget(ArrayList<Integer> budgetList) {
+    public Budget(int budget, Date date) {
+        this.budget = budget;
+        this.date = date;
+    }
+    public void setBudget(int budgetList) {
         this.budget = budgetList;
     }
 
@@ -17,7 +20,7 @@ public class Budget {
         this.date = date;
     }
 
-    public ArrayList<Integer> getBudget() {
+    public int getBudget() {
         return budget;
     }
 
