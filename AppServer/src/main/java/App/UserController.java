@@ -57,6 +57,18 @@ public class UserController {
         return null;
     }
 
+    @GetMapping("/user/{id}/password")
+    public String sendPassword(@PathVariable String id) throws Exception {
+
+        try {
+            Brugeradmin admin = connectUserDB();
+            admin.sendGlemtAdgangskodeEmail(id, "Send from Siff");
+            return "Email sent";
+        }catch (Exception e){
+            return "could not send email";
+        }
+    }
+
     private Brugeradmin connectUserDB() throws Exception{
         return (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
     }
