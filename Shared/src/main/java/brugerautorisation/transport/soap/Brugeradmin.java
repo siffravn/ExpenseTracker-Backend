@@ -21,7 +21,7 @@ public interface Brugeradmin
 	 * @return et Bruger-objekt med alle data
 	 */
 	@WebMethod
-    Bruger aendrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode);
+    Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode);
 
 	/**
 	 * Sender en email til en bruger
@@ -33,16 +33,16 @@ public interface Brugeradmin
     void sendEmail(String brugernavn, String adgangskode, String emne, String tekst);
 
 	@WebMethod
-    void sendGlemtAdgangskodeEmail(String brugernavn, String folgetekst);
+    void sendGlemtAdgangskodeEmail(String brugernavn, String følgetekst);
 
 	/**
 	 * Giver mulighed for at gemme et ekstra felt for brugeren. Det kunne f.eks. være at en Galgeleg-backend ønskede at gemme hvor mange point brugeren har, til en highscoreliste
 	 * @param brugernavn Brugeren det drejer sig om. Adgangskode skal være korrekt, dvs det er ikke muligt at hente felter for brugere, der ikke er logget ind.
 	 * @param feltnavn Navnet på feltet. Brug dit studie- eller gruppenummer som præfix, f.eks. "g22_galgeleg_point"
-	 * @param vaerdi Værdien er et vilkårligt objekt, f.eks. 223 (Integer) eller "223" (String)
+	 * @param værdi Værdien er et vilkårligt objekt, f.eks. 223 (Integer) eller "223" (String)
 	 */
 	@WebMethod
-    void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object vaerdi);
+    void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi);
 
 	/**
 	 * Aflæser et ekstra felt. Se setEkstraFelt
