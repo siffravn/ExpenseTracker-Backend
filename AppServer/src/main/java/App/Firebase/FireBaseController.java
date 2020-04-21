@@ -1,5 +1,6 @@
-package App;
+package App.Firebase;
 
+import DTO.Expense;
 import DTO.User;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,18 +59,25 @@ public class FireBaseController {
         Map<String, Object> docData = new HashMap<>();
         docData.put("category", Arrays.asList("west_coast", "social"));
 
-        ApiFuture<WriteResult> future = db.collection("users").document(user.username).collection("categories").document("1").set(docData);
+        ApiFuture<WriteResult> future = db.collection("users").document(user.toString()).collection("categories").document("1").set(docData);
 
 
 
         ApiFuture<WriteResult> collectionsApiFuture =
-                db.collection("users").document(user.username).set(user);
+                db.collection("users").document(user.toString()).set(user);
 
-        db.collection("users").document(user.username).collection("newcollection");
+        //db.collection("users").document(user.username).collection("newcollection");
 
 
         return collectionsApiFuture.get().getUpdateTime().toString();
 
+    }
+
+    public string updateExpenses(ArrayList<Expense> expenses) {
+        ApiFuture<WriteResult> collectionsApiFuture ;
+
+
+        return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
 
