@@ -120,9 +120,11 @@ public class FireBaseController {
                 collection("expenses").document(expenseID).delete();
 // ...
         System.out.println("Update time : " + writeResult.get().getUpdateTime());
+    }
 
-
+    public void saveBudget(String studentID, Budget budget){
 
     }
+
 }
 
