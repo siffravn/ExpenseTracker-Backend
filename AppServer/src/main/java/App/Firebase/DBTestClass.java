@@ -3,6 +3,7 @@ package App.Firebase;
 import App.Firebase.FireBaseController;
 import DTO.Expense;
 import DTO.User;
+import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -23,9 +24,13 @@ public class DBTestClass {
 
         ArrayList<Expense> expenses = new ArrayList<>();
         expenses.add(new Expense(100, "fish", new Date().toString(),""));
-        expenses.add(new Expense(1000, "games", new Date(12,4,2020).toString(), "overwataaach"));
+        expenses.add(new Expense(1000, "gaes", new Date(12,4,2020).toString(), "overwataaach"));
 
         //dbController.updateExpenses(expenses, "user100");
+
+
+
+        dbController.deleteExpense("user100", expenses.get(1).getDate());
 
         ArrayList<Expense> expensesFromFB = dbController.getExpenses("user100");
 

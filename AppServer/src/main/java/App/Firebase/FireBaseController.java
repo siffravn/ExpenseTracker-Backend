@@ -79,7 +79,7 @@ public class FireBaseController {
         //asynchronously retrieve multiple documents
         ApiFuture<QuerySnapshot> future = db.collection("users").document(studentID).collection("expenses").get();
 
-// future.get() blocks on response
+        // future.get() blocks on response
 
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 
@@ -109,6 +109,20 @@ public class FireBaseController {
             System.out.println("Update time : " + future.get().getUpdateTime());
 
         }
+    }
+
+    public void deleteExpense(String studentID, String expenseID) throws ExecutionException, InterruptedException {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        // asynchronously delete a document
+        ApiFuture<WriteResult> writeResult = db.collection("users").document(studentID).
+                collection("expenses").document(expenseID).delete();
+// ...
+        System.out.println("Update time : " + writeResult.get().getUpdateTime());
+
+
+
     }
 }
 
