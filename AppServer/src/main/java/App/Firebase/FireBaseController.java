@@ -11,16 +11,14 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.sun.xml.internal.bind.v2.TODO;
 
 
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 
@@ -75,29 +73,31 @@ public class FireBaseController {
 
     }
 
-    public String updateExpenses(ArrayList<Expense> expenses, String studentID) throws ExecutionException, InterruptedException {
+    public void updateExpenses(ArrayList<Expense> expenses, String studentID) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
 
 
-
         for (Expense expense : expenses){
 
-            ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document("s173998").collection("categoriessss").document().set(expense);
+            Map<String, Object> docData = new HashMap<>();
+            docData.put("amount", expense.getAmount());
+            docData.put("category", expense.getCategory());
+            docData.put("date", expense.getDate());
+            docData.put("note", expense.getNote());
+
+            ApiFuture<WriteResult> future = db.collection("users").document(studentID).collection("expenses").document(expense.getDate()).set(docData);
+            System.out.println("Update time : " + future.get().getUpdateTime());
 
         }
 
-        ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document("s173998").set(expenses.get(1));
-        //ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document(studentID).update("expenses", expenses);
-
-        Map<String, Object> docData = new HashMap<>();
-        docData.put("category", Arrays.asList("west_coast", "social"));
-
-        ApiFuture<WriteResult> future = db.collection("users").document("s173998test").collection("categories").document("1").set(docData);
 
 
-        return "hejk";
+
+
     }
+
+
 
 
 
