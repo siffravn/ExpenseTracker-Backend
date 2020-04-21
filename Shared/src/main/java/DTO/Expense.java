@@ -9,6 +9,12 @@ public class Expense {
     String date;
     String note;
 
+
+    // empty constructor for Firebase integration -Magnus
+    public Expense() {
+
+    }
+
     public  Expense(double amount, String category, String date, String note) {
         this.setAmount(amount);
         this.setCategory(category);

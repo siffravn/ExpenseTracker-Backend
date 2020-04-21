@@ -1,13 +1,11 @@
 package App.Firebase;
 
+import DTO.Budget;
 import DTO.Expense;
 import DTO.User;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -23,7 +21,6 @@ import java.util.concurrent.ExecutionException;
 
 
 public class FireBaseController {
-
 
 
     @PostConstruct
@@ -73,6 +70,28 @@ public class FireBaseController {
 
     }
 
+
+    public ArrayList<Expense> getExpenses(String studentID) throws ExecutionException, InterruptedException {
+
+        Firestore db = FirestoreClient.getFirestore();
+        ArrayList<Expense> expenses = new ArrayList<>();
+
+        //asynchronously retrieve multiple documents
+        ApiFuture<QuerySnapshot> future = db.collection("users").document(studentID).collection("expenses").get();
+
+// future.get() blocks on response
+
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        for (DocumentSnapshot document : documents) {
+            expenses.add(document.toObject(Expense.class));
+            System.out.println(document.getId() + " => " + document.toObject(Expense.class));
+        }
+
+
+        return expenses;
+    }
+
     public void updateExpenses(ArrayList<Expense> expenses, String studentID) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
@@ -90,17 +109,6 @@ public class FireBaseController {
             System.out.println("Update time : " + future.get().getUpdateTime());
 
         }
-
-
-
-
-
     }
-
-
-
-
-
-
 }
 
