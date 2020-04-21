@@ -26,6 +26,8 @@ import java.util.concurrent.ExecutionException;
 
 public class FireBaseController {
 
+
+
     @PostConstruct
     public void initialize() {
 
@@ -73,11 +75,28 @@ public class FireBaseController {
 
     }
 
-    public string updateExpenses(ArrayList<Expense> expenses) {
-        ApiFuture<WriteResult> collectionsApiFuture ;
+    public String updateExpenses(ArrayList<Expense> expenses, String studentID) throws ExecutionException, InterruptedException {
+
+        Firestore db = FirestoreClient.getFirestore();
 
 
-        return collectionsApiFuture.get().getUpdateTime().toString();
+
+        for (Expense expense : expenses){
+
+            ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document("s173998").collection("categoriessss").document().set(expense);
+
+        }
+
+        ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document("s173998").set(expenses.get(1));
+        //ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document(studentID).update("expenses", expenses);
+
+        Map<String, Object> docData = new HashMap<>();
+        docData.put("category", Arrays.asList("west_coast", "social"));
+
+        ApiFuture<WriteResult> future = db.collection("users").document("s173998test").collection("categories").document("1").set(docData);
+
+
+        return "hejk";
     }
 
 
