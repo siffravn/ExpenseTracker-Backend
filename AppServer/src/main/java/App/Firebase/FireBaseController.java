@@ -29,7 +29,7 @@ public class FireBaseController {
         FileInputStream serviceAccount = null;
 
         try {
-            serviceAccount = new FileInputStream("./serviceAccount.json");
+            serviceAccount = new FileInputStream("C:\\Users\\magnu\\JavaSchool\\BackEndUdvikling\\serviceAccount.json");
         } catch (FileNotFoundException e) {
             System.out.println("No service key in project");
             e.printStackTrace();
@@ -44,6 +44,7 @@ public class FireBaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         FirebaseApp.initializeApp(options);
 

@@ -19,14 +19,13 @@ public class FirebaseTests {
     private ArrayList<Expense> expenses = new ArrayList<>();
 
 
+
+
     @Test
     void saveExpenses() throws ExecutionException, InterruptedException {
 
         FireBaseController dbController = new FireBaseController();
         dbController.initialize();
-
-        expenses.add(new Expense(100, "Drinking", new Date().toString(),"Cold one with the boys"));
-        expenses.add(new Expense(1000, "Games", new Date(2019, Calendar.AUGUST,23).toString(), "overwataaach"));
 
         dbController.updateExpenses(expenses, testUserID);
     }
@@ -34,11 +33,15 @@ public class FirebaseTests {
     @Test
     void getExpenses() throws ExecutionException, InterruptedException {
         FireBaseController dbController = new FireBaseController();
-        dbController.initialize();
 
         ArrayList<Expense> recievedExpenses = dbController.getExpenses(testUserID);
 
-        assertEquals(expenses, recievedExpenses);
+
+        expenses.add(new Expense(100, "Drinking", new Date(2020, Calendar.MARCH,15).toString(),"Cold one with the boys"));
+        expenses.add(new Expense(1000, "Games", new Date(2019, Calendar.AUGUST,23).toString(), "overwataaach"));
+
+        assertEquals(expenses.get(0).getCategory(), recievedExpenses.get(0).getCategory());
+        assertEquals(expenses.get(1).getAmount(), recievedExpenses.get(1).getAmount());
 
 
     }
