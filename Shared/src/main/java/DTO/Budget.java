@@ -5,25 +5,20 @@ import java.util.ArrayList;
 
 public class Budget {
 
-    public int budget;
     private YearMonth date;
-    ArrayList<BudgetPost> posts;
+    ArrayList<BudgetPost> posts = new ArrayList<>();
 
-    public Budget(int budget, YearMonth date, ArrayList<BudgetPost> posts) {
-        this.budget = budget;
+    public Budget(YearMonth date) {
+        this.date = date;
+    }
+
+    public Budget(YearMonth date, ArrayList<BudgetPost> posts) {
         this.date = date;
         this.posts = posts;
-    }
-    public void setBudget(int budgetList) {
-        this.budget = budgetList;
     }
 
     public void setDate(YearMonth date) {
         this.date = date;
-    }
-
-    public int getBudget() {
-        return budget;
     }
 
     public YearMonth getDate() {
@@ -36,6 +31,10 @@ public class Budget {
 
     public void setPosts(ArrayList<BudgetPost> posts) {
         this.posts = posts;
+    }
+
+    public void addPost(BudgetPost budgetPost){
+        posts.add(budgetPost);
     }
 }
 

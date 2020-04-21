@@ -2,8 +2,12 @@ package DTO;
 
 public class BudgetPost {
 
-    public BudgetPost(){
+    private String category;
+    private int amount;
 
+    public BudgetPost(String category, int amount){
+        this.category = category;
+        this.amount = amount;
     }
 
     public String getCategory() {
@@ -21,8 +25,4 @@ public class BudgetPost {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
-    private String category;
-    private int amount;
-
 }
