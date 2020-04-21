@@ -1,6 +1,8 @@
 package App;
 
+import DTO.Category;
 import DTO.Expense;
+import MockupData.MockedCategoryData;
 import MockupData.MockedExpenseData;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +16,14 @@ import java.util.List;
 public class DBController {
 
     MockedExpenseData mockedExpenseData = MockedExpenseData.getInstance();
+    MockedCategoryData mockedCategoryData = MockedCategoryData.getInstance();
 
     @GetMapping("/expenses")
     public List<Expense> index() {return mockedExpenseData.fetchExpenses();
     }
+
+    @GetMapping("/category")
+    public List<Category> index2() {return mockedCategoryData.fetchCategories();
+    }
+
 }
