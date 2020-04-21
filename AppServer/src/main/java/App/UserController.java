@@ -3,6 +3,7 @@ package App;
 import DTO.User;
 import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.rmi.Brugeradmin;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.rmi.Naming;
@@ -27,16 +28,20 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody Map<String, String> body) throws Exception {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> body) throws Exception {
 
         String username = body.get("username");
         String password = body.get("password");
 
-        Brugeradmin admin = connectUserDB();
+        try{
+            Brugeradmin admin = connectUserDB();
+            Bruger bruger = admin.hentBruger(username, password);
 
-        Bruger bruger = admin.hentBruger(username, password);
+            return ResponseEntity.status(200).body(new User(bruger));
 
-        return new User(bruger);
+        } catch (Exception e){
+            return ResponseEntity.status(403).body("error");
+        }
     }
 
     @PostMapping("/user/{id}/password")
