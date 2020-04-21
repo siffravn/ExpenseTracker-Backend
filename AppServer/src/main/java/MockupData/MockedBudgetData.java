@@ -21,13 +21,13 @@ public class MockedBudgetData {
 
     //mocking the data
     public MockedBudgetData(){
-        Budget b = new Budget(YearMonth.of(2020, 4));
+        Budget b = new Budget(2020, 4);
         b.addPost(new BudgetPost("Groceries", 1500));
         b.addPost(new BudgetPost("Bills", 5000));
         b.addPost(new BudgetPost("Entertainment", 500));
         budgets.add(b);
 
-        Budget c = new Budget(YearMonth.of(2020, 5));
+        Budget c = new Budget(2020, 5);
         c.addPost(new BudgetPost("Groceries", 1500));
         c.addPost(new BudgetPost("Bills", 200));
         c.addPost(new BudgetPost("Vacation", 5000));
@@ -38,9 +38,9 @@ public class MockedBudgetData {
         return budgets;
     }
 
-    public Budget getBudget(YearMonth yearMonth){
+    public Budget getBudget(int year, int month){
         for (Budget budget : budgets){
-            if (budget.getDate().equals(yearMonth)) return budget;
+            if (budget.getYear() == year && budget.getMonth() == month) return budget;
         }
         return null;
     }

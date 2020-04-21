@@ -1,28 +1,42 @@
 package DTO;
 
+import java.io.Serializable;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
-public class Budget {
+public class Budget implements Serializable {
 
-    private YearMonth date;
+    private int year;
+    private int month;
     ArrayList<BudgetPost> posts = new ArrayList<>();
 
-    public Budget(YearMonth date) {
-        this.date = date;
+    public Budget() {}
+
+    public Budget(int year, int month) {
+        this.year = year;
+        this.month = month;
     }
 
-    public Budget(YearMonth date, ArrayList<BudgetPost> posts) {
-        this.date = date;
+    public Budget(int year, int month, ArrayList<BudgetPost> posts) {
+        this.year = year;
+        this.month = month;
         this.posts = posts;
     }
 
-    public void setDate(YearMonth date) {
-        this.date = date;
+    public int getYear() {
+        return year;
     }
 
-    public YearMonth getDate() {
-        return date;
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
 
     public ArrayList<BudgetPost> getPosts() {

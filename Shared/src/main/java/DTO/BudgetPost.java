@@ -1,9 +1,13 @@
 package DTO;
 
-public class BudgetPost {
+import java.io.Serializable;
+
+public class BudgetPost implements Serializable {
 
     private String category;
     private int amount;
+
+    public BudgetPost() {}
 
     public BudgetPost(String category, int amount){
         this.category = category;

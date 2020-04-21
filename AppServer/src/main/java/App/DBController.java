@@ -4,9 +4,7 @@ import DTO.Budget;
 import DTO.Expense;
 import MockupData.MockedBudgetData;
 import MockupData.MockedExpenseData;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.YearMonth;
 import java.util.List;
@@ -26,8 +24,11 @@ public class DBController {
     @GetMapping("/budget/{year}/{month}")
     public Budget getBudget(@PathVariable("year") int year,  @PathVariable("month")int month){
 
-        YearMonth yearMonth = YearMonth.of(year, month);
+        return mockedBudgetData.getBudget(year, month);
+    }
 
-        return mockedBudgetData.getBudget(yearMonth);
+    @PostMapping("/budget")
+    public void creatBudget(@RequestBody Budget budget){
+        mockedBudgetData.createBudget(budget);
     }
 }
