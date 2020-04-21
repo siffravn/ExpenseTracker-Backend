@@ -21,6 +21,7 @@ public class MockedExpenseData {
     public MockedExpenseData() {
         expenses = new ArrayList<>();
         expenses.add(new Expense(400,"Ballade", new Date().toString(), "Hovsa"));
+        expenses.add(new Expense(700, "Mad", new Date().toString(), "Mums"));
     }
 
     public List<Expense> fetchExpenses() {return expenses;}
