@@ -32,10 +32,15 @@ public class DBController {
 
 
     @GetMapping("/budget")
+    @ResponseBody
     public List<Budget> ListOfBudget(){return mockedBudgetData.getBudgetList();}
 
-    @GetMapping("/budget/{year}/{month}")
-    public Budget getBudget(@PathVariable("year") int year,  @PathVariable("month")int month){
+    @GetMapping("/budget?year={year}&month={month}")
+    @ResponseBody
+    public Budget getBudget(
+            @PathVariable("year") int year,
+            @PathVariable("month")int month)
+    {
 
         return mockedBudgetData.getBudget(year, month);
     }
