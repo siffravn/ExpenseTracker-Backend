@@ -9,7 +9,6 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import com.sun.xml.internal.bind.v2.TODO;
 
 
 import javax.annotation.PostConstruct;
