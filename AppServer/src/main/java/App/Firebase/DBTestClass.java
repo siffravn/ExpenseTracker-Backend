@@ -3,7 +3,6 @@ package App.Firebase;
 import App.Firebase.FireBaseController;
 import DTO.Expense;
 import DTO.User;
-import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
