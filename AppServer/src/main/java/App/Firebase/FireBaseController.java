@@ -140,7 +140,7 @@ public class FireBaseController {
             docData.put("amount", post.getAmount());
 
             ApiFuture<WriteResult> future = db.collection("users").document(studentID).collection("budgets")
-                    .document(budget.getYear()+"").collection("posts")
+                    .document(budget.getYear()+"-" + budget.getMonth()).collection("posts")
                     .document(post.getCategory()).set(docData);
 
             System.out.println("Update time : " + future.get().getUpdateTime());
