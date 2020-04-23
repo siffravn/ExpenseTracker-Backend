@@ -29,7 +29,7 @@ public class FireBaseController {
         FileInputStream serviceAccount = null;
 
         try {
-            serviceAccount = new FileInputStream("C:\\Users\\magnu\\JavaSchool\\BackEndUdvikling\\serviceAccount.json");
+            serviceAccount = new FileInputStream("serviceAccount.json");
         } catch (FileNotFoundException e) {
             System.out.println("No service key in project");
             e.printStackTrace();
@@ -124,6 +124,33 @@ public class FireBaseController {
     }
 
     public void saveBudget(String studentID, Budget budget){
+
+    }
+
+    @PostConstruct
+    public void initializeForTest() {
+
+        FileInputStream serviceAccount = null;
+
+        try {
+            serviceAccount = new FileInputStream("C:\\Users\\magnu\\JavaSchool\\BackEndUdvikling\\serviceAccount.json");
+        } catch (FileNotFoundException e) {
+            System.out.println("No service key in project");
+            e.printStackTrace();
+        }
+
+        FirebaseOptions options = null;
+        try {
+            options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl("https://expense-tracker-dfe53.firebaseio.com")
+                    .build();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        FirebaseApp.initializeApp(options);
 
     }
 

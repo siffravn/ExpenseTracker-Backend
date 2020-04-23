@@ -25,7 +25,7 @@ public class FirebaseTests {
     void saveExpenses() throws ExecutionException, InterruptedException {
 
         FireBaseController dbController = new FireBaseController();
-        dbController.initialize();
+        dbController.initializeForTest();
 
         dbController.updateExpenses(expenses, testUserID);
     }
