@@ -1,6 +1,7 @@
 package App.Firebase;
 
 import DTO.Budget;
+import DTO.BudgetPost;
 import DTO.Expense;
 import DTO.User;
 import com.google.api.core.ApiFuture;
@@ -9,9 +10,6 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import com.sun.xml.internal.bind.v2.TODO;
-
-
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,26 +48,34 @@ public class FireBaseController {
 
     }
 
-    public String saveUser(User user) throws ExecutionException, InterruptedException {
+    @PostConstruct
+    public void initializeForTest() {
 
-        Firestore db = FirestoreClient.getFirestore();
+        FileInputStream serviceAccount = null;
 
-        Map<String, Object> docData = new HashMap<>();
-        docData.put("category", Arrays.asList("west_coast", "social"));
+        try {
+            serviceAccount = new FileInputStream("C:\\Users\\magnu\\JavaSchool\\BackEndUdvikling\\serviceAccount.json");
+        } catch (FileNotFoundException e) {
+            System.out.println("No service key in project");
+            e.printStackTrace();
+        }
 
-        ApiFuture<WriteResult> future = db.collection("users").document(user.toString()).collection("categories").document("1").set(docData);
+        FirebaseOptions options = null;
+        try {
+            options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl("https://expense-tracker-dfe53.firebaseio.com")
+                    .build();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-
-        ApiFuture<WriteResult> collectionsApiFuture =
-                db.collection("users").document(user.toString()).set(user);
-
-        //db.collection("users").document(user.username).collection("newcollection");
-
-
-        return collectionsApiFuture.get().getUpdateTime().toString();
+        FirebaseApp.initializeApp(options);
 
     }
+
+
 
 
     public ArrayList<Expense> getExpenses(String studentID) throws ExecutionException, InterruptedException {
@@ -93,7 +99,7 @@ public class FireBaseController {
         return expenses;
     }
 
-    public void updateExpenses(ArrayList<Expense> expenses, String studentID) throws ExecutionException, InterruptedException {
+    public void updateExpenses(String studentID, ArrayList<Expense> expenses) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
 
@@ -123,35 +129,23 @@ public class FireBaseController {
         System.out.println("Update time : " + writeResult.get().getUpdateTime());
     }
 
-    public void saveBudget(String studentID, Budget budget){
+    public void saveBudget(String studentID, Budget budget) throws ExecutionException, InterruptedException {
 
-    }
+        Firestore db = FirestoreClient.getFirestore();
 
-    @PostConstruct
-    public void initializeForTest() {
+        for (BudgetPost post : budget.getPosts()){
 
-        FileInputStream serviceAccount = null;
+            Map<String, Object> docData = new HashMap<>();
+            docData.put("category", post.getCategory());
+            docData.put("amount", post.getAmount());
 
-        try {
-            serviceAccount = new FileInputStream("C:\\Users\\magnu\\JavaSchool\\BackEndUdvikling\\serviceAccount.json");
-        } catch (FileNotFoundException e) {
-            System.out.println("No service key in project");
-            e.printStackTrace();
+            ApiFuture<WriteResult> future = db.collection("users").document(studentID).collection("budgets")
+                    .document(budget.getYear()+"").collection("posts")
+                    .document(post.getCategory()).set(docData);
+
+            System.out.println("Update time : " + future.get().getUpdateTime());
+
         }
-
-        FirebaseOptions options = null;
-        try {
-            options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://expense-tracker-dfe53.firebaseio.com")
-                    .build();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        FirebaseApp.initializeApp(options);
-
     }
 
 }
