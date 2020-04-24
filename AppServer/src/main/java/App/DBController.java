@@ -33,7 +33,10 @@ public class DBController {
     }
 
     @GetMapping("/expenses/{username}")
-    public List<Expense> index(@PathVariable("username") String usename) throws ExecutionException, InterruptedException {return fireBaseController.getExpenses(usename);
+    public List<Expense> index(@PathVariable("username") String usename)
+            throws ExecutionException, InterruptedException
+    {
+        return fireBaseController.getExpenses(usename);
     }
 
     @GetMapping("/category")
@@ -48,18 +51,21 @@ public class DBController {
     @GetMapping("/{username}/budget?year={year}&month={month}")
     @ResponseBody
     public Budget getBudget(
-            @PathVariable("username") int username,
+            @PathVariable("username") String username,
             @PathVariable("year") int year,
             @PathVariable("month")int month)
+            throws ExecutionException, InterruptedException
     {
+        return fireBaseController.getBudget(username, year, month);
 
-        return mockedBudgetData.getBudget(year, month);
     }
 
     @PostMapping("/{username}/budget")
     public void creatBudget(
-            @PathVariable("username") int username,
-            @RequestBody Budget budget){
-        mockedBudgetData.createBudget(budget);
+            @PathVariable("username") String username,
+            @RequestBody Budget budget)
+            throws ExecutionException, InterruptedException
+    {
+        fireBaseController.updateBudget(username, budget);
     }
 }
