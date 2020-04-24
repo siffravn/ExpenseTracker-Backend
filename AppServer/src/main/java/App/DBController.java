@@ -58,7 +58,7 @@ public class DBController {
     }
 
     @PostMapping("/{username}/budget")
-    public void creatBudget(
+    public void createBudget(
             @PathVariable("username") String username,
             @RequestBody Budget budget)
             throws ExecutionException, InterruptedException
