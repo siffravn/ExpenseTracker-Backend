@@ -48,7 +48,7 @@ public class DBController {
     @ResponseBody
     public List<Budget> ListOfBudget(){return mockedBudgetData.getBudgetList();}
 
-    @GetMapping("/{username}/budget?year={year}&month={month}")
+    @GetMapping("/budget/{username}/{year}/{month}")
     @ResponseBody
     public Budget getBudget(
             @PathVariable("username") String username,
