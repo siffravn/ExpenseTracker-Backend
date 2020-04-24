@@ -4,6 +4,7 @@ import DTO.Budget;
 import DTO.BudgetPost;
 import DTO.Expense;
 import DTO.User;
+import MockupData.MockedExpenseData;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
@@ -19,6 +20,13 @@ import java.util.concurrent.ExecutionException;
 
 
 public class FireBaseController {
+    private static FireBaseController instance = null;
+    public  static FireBaseController getInstance() {
+        if (instance == null) {
+            instance = new FireBaseController();
+        }
+        return instance;
+    }
 
 
     @PostConstruct
