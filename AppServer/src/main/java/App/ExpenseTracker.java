@@ -11,4 +11,3 @@ public class ExpenseTracker {
     }
 
 }
-//TODO: add server.address=dist.saluton.dk to application.properties
