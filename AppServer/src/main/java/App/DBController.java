@@ -32,8 +32,8 @@ public class DBController {
         fireBaseController.initialize();
     }
 
-    @GetMapping("/expenses/{studentID}")
-    public List<Expense> index(@PathVariable("studentID") String studentID) throws ExecutionException, InterruptedException {return fireBaseController.getExpenses(studentID);
+    @GetMapping("/expenses/{username}")
+    public List<Expense> index(@PathVariable("username") String usename) throws ExecutionException, InterruptedException {return fireBaseController.getExpenses(usename);
     }
 
     @GetMapping("/category")
