@@ -1,13 +1,11 @@
-package App.Firebase;
+package App;
 
-import App.Firebase.FireBaseController;
+import App.FireBaseController;
 import DTO.Budget;
 import DTO.BudgetPost;
 import DTO.Expense;
-import DTO.User;
 
 import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;

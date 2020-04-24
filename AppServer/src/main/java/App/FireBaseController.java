@@ -1,4 +1,4 @@
-package App.Firebase;
+package App;
 
 import DTO.Budget;
 import DTO.BudgetPost;
