@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class FireBaseControllerTest {
 
-    private String testUserID = "TestUser";
+    /*private String testUserID = "TestUser";
     private FireBaseController dbController = new FireBaseController();
 
 
@@ -76,6 +76,6 @@ class FireBaseControllerTest {
 
         assertEquals(receivedBudgetAfterDelete.getPosts().size(), 0);
 
-    }
+    }*/
 
 }
