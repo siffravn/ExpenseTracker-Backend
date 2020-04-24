@@ -125,11 +125,11 @@ public class FireBaseController {
         // asynchronously delete a document
         ApiFuture<WriteResult> writeResult = db.collection("users").document(studentID).
                 collection("expenses").document(expenseID).delete();
-// ...
+
         System.out.println("Update time : " + writeResult.get().getUpdateTime());
     }
 
-    public void saveBudget(String studentID, Budget budget) throws ExecutionException, InterruptedException {
+    public void updateBudget(String studentID, Budget budget) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
 
@@ -145,6 +145,70 @@ public class FireBaseController {
 
             System.out.println("Update time : " + future.get().getUpdateTime());
 
+        }
+    }
+
+    public Budget getBudget(String studentID, int year, int month) throws ExecutionException, InterruptedException {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        Budget receivedBudget = new Budget(year, month);
+        ArrayList<BudgetPost> posts = new ArrayList<>();
+
+        //asynchronously retrieve multiple documents
+        ApiFuture<QuerySnapshot> future = db.collection("users").document(studentID).collection("budgets")
+                .document(year+"-"+month).collection("posts").get();
+
+        // future.get() blocks on response
+
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        for (DocumentSnapshot document : documents) {
+            posts.add(document.toObject(BudgetPost.class));
+            System.out.println(document.getId() + " => " + document.toObject(Expense.class));
+        }
+        receivedBudget.setPosts(posts);
+
+        return receivedBudget;
+    }
+
+    public void deleteBudget(String studentID, int year, int month) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+
+
+        CollectionReference postCollection = db.collection("users").document(studentID).collection("budgets")
+                .document(year+"-"+month).collection("posts");
+
+        deleteCollection(postCollection, 10);
+
+        // asynchronously delete a document
+        ApiFuture<WriteResult> writeResult = db.collection("users").document(studentID).
+                collection("budgets").document(year+"-"+month).delete();
+
+        System.out.println("Update time : " + writeResult.get().getUpdateTime());
+
+    }
+
+    /** Delete a collection in batches to avoid out-of-memory errors.
+     * Batch size may be tuned based on document size (atmost 1MB) and application requirements.
+     */
+    private void deleteCollection(CollectionReference collection, int batchSize) {
+        try {
+            // retrieve a small batch of documents to avoid out-of-memory errors
+            ApiFuture<QuerySnapshot> future = collection.limit(batchSize).get();
+            int deleted = 0;
+            // future.get() blocks on document retrieval
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            for (QueryDocumentSnapshot document : documents) {
+                document.getReference().delete();
+                ++deleted;
+            }
+            if (deleted >= batchSize) {
+                // retrieve and delete another batch
+                deleteCollection(collection, batchSize);
+            }
+        } catch (Exception e) {
+            System.err.println("Error deleting collection : " + e.getMessage());
         }
     }
 

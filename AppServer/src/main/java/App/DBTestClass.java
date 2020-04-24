@@ -39,7 +39,6 @@ public class DBTestClass {
         //dbController.updateExpenses(expenses, "user100");
         //dbController.deleteExpense("user100", expenses.get(1).getDate());
 
-        dbController.saveBudget(testUserID, budget);
 
         ArrayList<Expense> expensesFromFB = dbController.getExpenses("user100");
 
