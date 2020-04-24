@@ -5,7 +5,6 @@ import DTO.Budget;
 import DTO.Expense;
 import MockupData.MockedBudgetData;
 import MockupData.MockedCategoryData;
-import MockupData.MockedExpenseData;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://expense-tracker-dfe53.web.app/"})
 
 @RestController
 public class DBController {
-
-    MockedExpenseData mockedExpenseData = MockedExpenseData.getInstance();
     MockedBudgetData mockedBudgetData = MockedBudgetData.getInstance();
     MockedCategoryData mockedCategoryData = MockedCategoryData.getInstance();
     FireBaseController fireBaseController = FireBaseController.getInstance();
@@ -33,10 +30,10 @@ public class DBController {
     }
 
     @GetMapping("/expenses/{username}")
-    public List<Expense> index(@PathVariable("username") String usename)
+    public List<Expense> index(@PathVariable("username") String username)
             throws ExecutionException, InterruptedException
     {
-        return fireBaseController.getExpenses(usename);
+        return fireBaseController.getExpenses(username);
     }
 
     @GetMapping("/category")
