@@ -110,6 +110,12 @@ public class FireBaseController {
         return null;
     }
 
+    // TODO implement this
+    // TODO implement to only update dublet
+    public void updateExpenses(String username, int year, int month, ArrayList<Expense> expenses) {
+
+    }
+
     public void updateExpenses(String studentID, ArrayList<Expense> expenses) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();

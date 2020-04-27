@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -45,8 +46,15 @@ public class DBController {
         return fireBaseController.getExpenses(username, year, month);
     }
 
-    public void createExpense(){
-
+    @PostMapping("/{username}/expenses/{year}/{month}")
+    public void createExpenses(
+            @PathVariable("username") String username,
+            @PathVariable("year") int year,
+            @PathVariable("month")int month,
+            @RequestBody ArrayList<Expense> expenses)
+            throws ExecutionException, InterruptedException
+    {
+        fireBaseController.updateExpenses(username, year, month, expenses);
     }
 
     public void updateExpense(){
