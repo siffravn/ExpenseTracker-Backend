@@ -168,6 +168,11 @@ public class FireBaseController {
         }
     }
 
+    //TODO implement to get ALL budgets for the user
+    public ArrayList<Budget> getBudget(String username) {
+        return null;
+    }
+
     public Budget getBudget(String studentID, int year, int month) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();

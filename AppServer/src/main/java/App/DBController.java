@@ -29,8 +29,8 @@ public class DBController {
         fireBaseController.initialize();
     }
 
-    @GetMapping("/expenses/{username}")
-    public List<Expense> index(@PathVariable("username") String username)
+    @GetMapping("{username}/expenses")
+    public List<Expense> getAllExpenses(@PathVariable("username") String username)
             throws ExecutionException, InterruptedException
     {
         return fireBaseController.getExpenses(username);
@@ -62,9 +62,14 @@ public class DBController {
     }
 
 
-    @GetMapping("/budget")
+    @GetMapping("{username}/budget")
     @ResponseBody
-    public List<Budget> ListOfBudget(){return mockedBudgetData.getBudgetList();}
+    public List<Budget> getAllBudgets(
+            @PathVariable("username") String username)
+            throws ExecutionException, InterruptedException
+    {
+        return fireBaseController.getBudget(username);
+    }
 
     @GetMapping("{username}/budget/{year}/{month}")
     @ResponseBody
