@@ -35,6 +35,23 @@ public class DBController {
         return fireBaseController.getExpenses(username);
     }
 
+    public List<Expense> getExpenses(){
+        return null;
+    }
+
+    public void createExpense(){
+
+    }
+
+    public void updateExpense(){
+
+    }
+
+    public void deleteExpense(){
+
+    }
+
+
     @GetMapping("/category")
     public List<Category> index2() {return mockedCategoryData.fetchCategories();
     }
@@ -44,7 +61,7 @@ public class DBController {
     @ResponseBody
     public List<Budget> ListOfBudget(){return mockedBudgetData.getBudgetList();}
 
-    @GetMapping("/budget/{username}/{year}/{month}")
+    @GetMapping("{username}/budget/{year}/{month}")
     @ResponseBody
     public Budget getBudget(
             @PathVariable("username") String username,
@@ -63,5 +80,13 @@ public class DBController {
             throws ExecutionException, InterruptedException
     {
         fireBaseController.updateBudget(username, budget);
+    }
+
+    public void updateBudget(){
+
+    }
+
+    public void deleteBudget(){
+
     }
 }
