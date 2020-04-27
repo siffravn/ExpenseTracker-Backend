@@ -105,6 +105,11 @@ public class FireBaseController {
         return expenses;
     }
 
+    // TODO implement this
+    public ArrayList<Expense> getExpenses(String username, int year, int month) {
+        return null;
+    }
+
     public void updateExpenses(String studentID, ArrayList<Expense> expenses) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();

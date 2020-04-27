@@ -35,8 +35,14 @@ public class DBController {
         return fireBaseController.getExpenses(username);
     }
 
-    public List<Expense> getExpenses(){
-        return null;
+    @GetMapping("/{username}/expenses/{year}/{month}")
+    public List<Expense> getExpenses(
+            @PathVariable("username") String username,
+            @PathVariable("year") int year,
+            @PathVariable("month")int month)
+            throws ExecutionException, InterruptedException
+    {
+        return fireBaseController.getExpenses(username, year, month);
     }
 
     public void createExpense(){
