@@ -46,7 +46,7 @@ public class DBController {
         return fireBaseController.getExpenses(username, year, month);
     }
 
-    @PostMapping("/{username}/expenses/{year}/{month}")
+    @PutMapping("/{username}/expenses/{year}/{month}")
     public void createExpenses(
             @PathVariable("username") String username,
             @PathVariable("year") int year,
@@ -56,15 +56,6 @@ public class DBController {
     {
         fireBaseController.updateExpenses(username, year, month, expenses);
     }
-
-    public void updateExpense(){
-
-    }
-
-    public void deleteExpense(){
-
-    }
-
 
     @GetMapping("/category")
     public List<Category> index2() {return mockedCategoryData.fetchCategories();

@@ -135,6 +135,7 @@ public class FireBaseController {
         }
     }
 
+    // TODO implement this to delete for year month
     public void deleteExpense(String studentID, String expenseID) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
