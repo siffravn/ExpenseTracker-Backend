@@ -47,7 +47,7 @@ public class DBController {
     }
 
     @PutMapping("/{username}/expenses/{year}/{month}")
-    public void createExpenses(
+    public void updateExpenses(
             @PathVariable("username") String username,
             @PathVariable("year") int year,
             @PathVariable("month")int month,
@@ -78,20 +78,14 @@ public class DBController {
 
     }
 
-    @PostMapping("/{username}/budget")
-    public void createBudget(
+    @PostMapping("/{username}/budget/{year}/{month}")
+    public void updateBudget(
             @PathVariable("username") String username,
+            @PathVariable("year") int year,
+            @PathVariable("month")int month,
             @RequestBody Budget budget)
             throws ExecutionException, InterruptedException
     {
-        fireBaseController.updateBudget(username, budget);
-    }
-
-    public void updateBudget(){
-
-    }
-
-    public void deleteBudget(){
-
+        fireBaseController.updateBudget(username, year, month, budget);
     }
 }

@@ -111,7 +111,7 @@ public class FireBaseController {
     }
 
     // TODO implement this
-    // TODO implement to only update dublet
+    // TODO implement to delete non-dublicate
     public void updateExpenses(String username, int year, int month, ArrayList<Expense> expenses) {
 
     }
@@ -147,7 +147,9 @@ public class FireBaseController {
         System.out.println("Update time : " + writeResult.get().getUpdateTime());
     }
 
-    public void updateBudget(String studentID, Budget budget) throws ExecutionException, InterruptedException {
+    // TODO implement to delete non-dublicate
+    // TODO if post-list is empty delete entire budget instance
+    public void updateBudget(String studentID, int year, int month, Budget budget) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
 
@@ -190,6 +192,7 @@ public class FireBaseController {
         return receivedBudget;
     }
 
+    // TODO delete entire budget instance
     public void deleteBudget(String studentID, int year, int month) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
 
