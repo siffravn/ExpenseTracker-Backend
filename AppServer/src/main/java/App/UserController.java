@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.rmi.Naming;
 import java.util.Map;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*","http://localhost:4200"})
 @RestController
 public class UserController {
 
