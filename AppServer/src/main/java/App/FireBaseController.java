@@ -169,7 +169,7 @@ public class FireBaseController {
     }
 
     //TODO implement to get ALL budgets for the user
-    public ArrayList<Budget> getBudget(String username) {
+    public ArrayList<Budget> getBudgets(String username) {
         return null;
     }
 
