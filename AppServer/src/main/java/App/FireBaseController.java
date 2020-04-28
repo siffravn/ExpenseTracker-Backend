@@ -128,7 +128,7 @@ public class FireBaseController {
     }
 
 
-    // TODO implement to delete non-dublicate
+
     public void updateExpenses(String studentID, int year, int month, ArrayList<Expense> expenses) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
@@ -241,7 +241,7 @@ public class FireBaseController {
         return receivedBudget;
     }
 
-    // TODO delete entire budget instance
+
     public void deleteBudget(String studentID, int year, int month) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
 
