@@ -81,10 +81,8 @@ public class FireBaseController {
 
     }
 
-
-
-
-    public ArrayList<Expense> getExpenses(String studentID) throws ExecutionException, InterruptedException {
+    //TODO currenlt doesnt work (i dont think firestore supports getting all subcollection based on root
+    public ArrayList<Expense> getAllExpenses(String studentID) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
         ArrayList<Expense> expenses = new ArrayList<>();
@@ -105,44 +103,73 @@ public class FireBaseController {
         return expenses;
     }
 
-    // TODO implement this
-    public ArrayList<Expense> getExpenses(String username, int year, int month) {
-        return null;
-    }
 
-    // TODO implement this
-    // TODO implement to delete non-dublicate
-    public void updateExpenses(String username, int year, int month, ArrayList<Expense> expenses) {
-
-    }
-
-    public void updateExpenses(String studentID, ArrayList<Expense> expenses) throws ExecutionException, InterruptedException {
+    public ArrayList<Expense> getExpenses(String studentID, int year, int month) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
 
+        ArrayList<Expense> recievedExpenses = new ArrayList<>();
 
-        for (Expense expense : expenses){
+        //asynchronously retrieve multiple documents
+        ApiFuture<QuerySnapshot> future = db.collection("users").document(studentID).collection("expenses")
+                .document(year+"-"+month).collection("expenses").get();
 
-            Map<String, Object> docData = new HashMap<>();
-            docData.put("amount", expense.getAmount());
-            docData.put("category", expense.getCategory());
-            docData.put("date", expense.getDate());
-            docData.put("note", expense.getNote());
+        // future.get() blocks on response
 
-            ApiFuture<WriteResult> future = db.collection("users").document(studentID).collection("expenses").document(expense.getDate()).set(docData);
-            System.out.println("Update time : " + future.get().getUpdateTime());
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 
+        for (DocumentSnapshot document : documents) {
+            recievedExpenses.add(document.toObject(Expense.class));
+            System.out.println(document.getId() + " => " + document.toObject(Expense.class));
         }
+
+
+        return recievedExpenses;
     }
 
-    // TODO implement this to delete for year month
-    public void deleteExpense(String studentID, String expenseID) throws ExecutionException, InterruptedException {
+
+    // TODO implement to delete non-dublicate
+    public void updateExpenses(String studentID, int year, int month, ArrayList<Expense> expenses) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
+
+        if (expenses.size() != 0) {
+
+            CollectionReference postCollection = db.collection("users").document(studentID).collection("expenses")
+                    .document(year+"-"+month).collection("expenses");
+            deleteCollection(postCollection, 10);
+
+            for (Expense expense : expenses){
+
+                Map<String, Object> docData = new HashMap<>();
+                docData.put("amount", expense.getAmount());
+                docData.put("category", expense.getCategory());
+                docData.put("date", expense.getDate());
+                docData.put("note", expense.getNote());
+
+                ApiFuture<WriteResult> future = db.collection("users").document(studentID).collection("expenses")
+                        .document(year + "-" + month).collection("expenses").document().set(docData);
+                System.out.println("Update time : " + future.get().getUpdateTime());
+
+            }
+        } else deleteExpense(studentID, year, month);
+
+    }
+
+
+
+
+    public void deleteExpense(String studentID, int year, int month) throws ExecutionException, InterruptedException {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        CollectionReference postCollection = db.collection("users").document(studentID).collection("expenses")
+                .document(year+"-"+month).collection("expenses");
+        deleteCollection(postCollection, 10);
 
         // asynchronously delete a document
         ApiFuture<WriteResult> writeResult = db.collection("users").document(studentID).
-                collection("expenses").document(expenseID).delete();
+                collection("expenses").document(year+"-"+month).delete();
 
         System.out.println("Update time : " + writeResult.get().getUpdateTime());
     }
@@ -162,7 +189,7 @@ public class FireBaseController {
 
         if (budget.getPosts().size() != 0) {
 
-            //deleteBudget(studentID, budget.getYear(), budget.getMonth());
+
             CollectionReference postCollection = db.collection("users").document(studentID).collection("budgets")
                     .document(budget.getYear()+"-"+budget.getMonth()).collection("posts");
             deleteCollection(postCollection, 10);
@@ -235,7 +262,7 @@ public class FireBaseController {
     /** Delete a collection in batches to avoid out-of-memory errors.
      * Batch size may be tuned based on document size (atmost 1MB) and application requirements.
      */
-    private void deleteCollection(CollectionReference collection, int batchSize) {
+    public void deleteCollection(CollectionReference collection, int batchSize) {
         try {
             // retrieve a small batch of documents to avoid out-of-memory errors
             ApiFuture<QuerySnapshot> future = collection.limit(batchSize).get();

@@ -33,7 +33,7 @@ public class DBController {
     public List<Expense> getAllExpenses(@PathVariable("username") String username)
             throws ExecutionException, InterruptedException
     {
-        return fireBaseController.getExpenses(username);
+        return fireBaseController.getAllExpenses(username);
     }
 
     @GetMapping("/{username}/expenses/{year}/{month}")
