@@ -82,7 +82,7 @@ public class FireBaseController {
     }
 
     //TODO currenlt doesnt work (i dont think firestore supports getting all subcollection based on root
-    public ArrayList<Expense> getAllExpenses(String studentID) throws ExecutionException, InterruptedException {
+    public ArrayList<Expense> getExpenses(String studentID) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
         ArrayList<Expense> expenses = new ArrayList<>();
