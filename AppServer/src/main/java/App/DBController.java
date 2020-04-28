@@ -7,6 +7,8 @@ import MockupData.MockedBudgetData;
 import MockupData.MockedCategoryData;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,23 +32,36 @@ public class DBController {
     }
 
     @GetMapping("{username}/expenses")
-    public List<Expense> getAllExpenses(@PathVariable("username") String username)
+    public ResponseEntity<?> getAllExpenses(@PathVariable("username") String username)
             throws ExecutionException, InterruptedException
     {
-        return fireBaseController.getAllExpenses(username);
+        try {
+            List<Expense> expenses = fireBaseController.getExpenses(username);
+            return ResponseEntity.ok().body(expenses);
+
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{username}/expenses/{year}/{month}")
-    public List<Expense> getExpenses(
+    public ResponseEntity<?> getExpenses(
             @PathVariable("username") String username,
             @PathVariable("year") int year,
             @PathVariable("month")int month)
             throws ExecutionException, InterruptedException
     {
-        return fireBaseController.getExpenses(username, year, month);
+        try {
+            List<Expense> expenses = fireBaseController.getExpenses(username, year, month);
+            return ResponseEntity.ok().body(expenses);
+
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{username}/expenses/{year}/{month}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateExpenses(
             @PathVariable("username") String username,
             @PathVariable("year") int year,
@@ -57,6 +72,7 @@ public class DBController {
         fireBaseController.updateExpenses(username, year, month, expenses);
     }
 
+    // TODO in use?
     @GetMapping("/category")
     public List<Category> index2() {return mockedCategoryData.fetchCategories();
     }
@@ -64,26 +80,38 @@ public class DBController {
 
     @GetMapping("{username}/budget")
     @ResponseBody
-    public List<Budget> getAllBudgets(
+    public ResponseEntity<?> getAllBudgets(
             @PathVariable("username") String username)
             throws ExecutionException, InterruptedException
     {
-        return fireBaseController.getBudgets(username);
+        try {
+            List<Budget> budgets = fireBaseController.getBudgets(username);
+            return ResponseEntity.ok().body(budgets);
+
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("{username}/budget/{year}/{month}")
     @ResponseBody
-    public Budget getBudget(
+    public ResponseEntity<?> getBudget(
             @PathVariable("username") String username,
             @PathVariable("year") int year,
             @PathVariable("month")int month)
             throws ExecutionException, InterruptedException
     {
-        return fireBaseController.getBudget(username, year, month);
+        try {
+            Budget budget = fireBaseController.getBudget(username, year, month);
+            return ResponseEntity.ok().body(budget);
 
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/{username}/budget/{year}/{month}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBudget(
             @PathVariable("username") String username,
             @PathVariable("year") int year,

@@ -43,7 +43,7 @@ public class DBTestClass {
 
 
 
-        ArrayList<Expense> expensesFromFB = dbController.getAllExpenses("user100");
+        ArrayList<Expense> expensesFromFB = dbController.getExpenses("user100");
 
         for (Expense expense : expensesFromFB){
             System.out.println(expense.getCategory());
