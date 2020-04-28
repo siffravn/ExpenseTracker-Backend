@@ -41,7 +41,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(new User(bruger));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or password id incorrect. Please try again.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or password is incorrect. Please try again.");
         }
     }
 
