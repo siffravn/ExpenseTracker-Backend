@@ -68,7 +68,7 @@ public class DBController {
             @PathVariable("username") String username)
             throws ExecutionException, InterruptedException
     {
-        return fireBaseController.getBudget(username);
+        return fireBaseController.getBudgets(username);
     }
 
     @GetMapping("{username}/budget/{year}/{month}")

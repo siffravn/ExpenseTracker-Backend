@@ -147,25 +147,42 @@ public class FireBaseController {
         System.out.println("Update time : " + writeResult.get().getUpdateTime());
     }
 
-    // TODO implement to delete non-dublicate
-    // TODO if post-list is empty delete entire budget instance
+    /**
+     * Method for updating/saving af budget. If the budget recieves a budget without any Posts it deletes the budget instead.
+     * @param studentID the owner of the budget
+     * @param year redundant atm
+     * @param month --"--
+     * @param budget The budget being updated
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public void updateBudget(String studentID, int year, int month, Budget budget) throws ExecutionException, InterruptedException {
 
         Firestore db = FirestoreClient.getFirestore();
 
-        for (BudgetPost post : budget.getPosts()){
+        if (budget.getPosts().size() != 0) {
 
-            Map<String, Object> docData = new HashMap<>();
-            docData.put("category", post.getCategory());
-            docData.put("amount", post.getAmount());
+            //deleteBudget(studentID, budget.getYear(), budget.getMonth());
+            CollectionReference postCollection = db.collection("users").document(studentID).collection("budgets")
+                    .document(budget.getYear()+"-"+budget.getMonth()).collection("posts");
+            deleteCollection(postCollection, 10);
 
-            ApiFuture<WriteResult> future = db.collection("users").document(studentID).collection("budgets")
-                    .document(budget.getYear()+"-" + budget.getMonth()).collection("posts")
-                    .document(post.getCategory()).set(docData);
 
-            System.out.println("Update time : " + future.get().getUpdateTime());
 
-        }
+            for (BudgetPost post : budget.getPosts()){
+
+                Map<String, Object> docData = new HashMap<>();
+                docData.put("category", post.getCategory());
+                docData.put("amount", post.getAmount());
+
+                ApiFuture<WriteResult> future = db.collection("users").document(studentID).collection("budgets")
+                        .document(budget.getYear()+"-" + budget.getMonth()).collection("posts")
+                        .document(post.getCategory()).set(docData);
+
+                System.out.println("Update time : " + future.get().getUpdateTime());
+
+            }
+        } else deleteBudget(studentID, budget.getYear(), budget.getMonth());
     }
 
     //TODO implement to get ALL budgets for the user
