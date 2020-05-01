@@ -71,7 +71,7 @@ public class BudgetRESTConsoleClient {
                     .path(url)
                     .request(MediaType.APPLICATION_JSON)
                     .get(Response.class)
-                    .readEntity(new GenericType<List<Expense>>(){});
+                    .readEntity(new GenericType<ArrayList<Expense>>(){});
             return expenseArrayList;
     }
 
