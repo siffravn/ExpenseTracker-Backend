@@ -1,13 +1,15 @@
 package Console;
 
 import DTO.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ExpenseTracker {
 
     User user;
     Budget budget;
-    Expense expense;
+    ArrayList<Expense> expenses;
     BudgetRESTConsoleClient backendService = new BudgetRESTConsoleClient();
 
     public void run(){
@@ -51,6 +53,22 @@ public class ExpenseTracker {
 
         try{
             budget = backendService.getBudget(year, month);
+
+        }catch (Exception e){
+            System.out.println("Error");
+        }
+    }
+
+    private void getExpenses(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter desired year and moth:");
+        System.out.println("Year: ");
+        int year = scanner.nextInt();
+        System.out.println("Month: ");
+        int month = scanner.nextInt();
+
+        try{
+            expenses = backendService.getExpenses(year, month);
 
         }catch (Exception e){
             System.out.println("Error");
