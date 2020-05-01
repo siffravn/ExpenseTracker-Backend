@@ -1,11 +1,10 @@
 package Console;
 import DTO.User;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
+
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -30,12 +29,16 @@ public class BudgetRESTConsoleClient {
         String url = domain + "/login";
         LogIn logIn = new LogIn(username,password);
 
-        //Response response = client.target(url).request().post(Entity(logIn), Response.class);
-        Response response = client.target(url).request().get();
-        clientID = username;
+        WebTarget webTarget = client.target(domain);
 
-        String result = response.readEntity(String.class);
+        WebTarget authTarget = webTarget.path("/login");
 
-        System.out.println(result);
+        Invocation.Builder invocationBuilder = authTarget.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.post(Entity.entity(logIn, MediaType.APPLICATION_JSON));
+
+        User result = response.readEntity(User.class);
+
+        System.out.println(result.firstName);
      }
 }
