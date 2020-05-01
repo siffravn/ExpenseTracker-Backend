@@ -41,4 +41,20 @@ public class ExpenseTracker {
         }
     }
 
+    private void getBudget(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter desired year and moth:");
+        System.out.println("Year: ");
+        int year = scanner.nextInt();
+        System.out.println("Month: ");
+        int month = scanner.nextInt();
+
+        try{
+            budget = backendService.getBudget(year, month);
+
+        }catch (Exception e){
+            System.out.println("Error");
+        }
+    }
+
 }
