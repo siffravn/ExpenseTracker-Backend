@@ -2,11 +2,12 @@ package Console;
 import DTO.Budget;
 import DTO.Expense;
 import DTO.User;
-
 import javax.ws.rs.client.*;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -14,13 +15,12 @@ public class BudgetRESTConsoleClient {
 
     static String domain ="http://localhost:3344"; // TODO change when server is deployed
     static User user;
-
     public static void main(String[] args) {
         Client client = ClientBuilder.newClient();
-        login(client);
+        getExpenses(2020,5);
     }
 
-    public static void login(Client client) {
+    public void login(Client client) {
         System.out.println("Welcome to ExpenseTracker!");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter your login information:");
@@ -49,10 +49,9 @@ public class BudgetRESTConsoleClient {
         Client client = ClientBuilder.newClient();
         String path = "/budget/";
 
-        String url = domain + path + year + "/" + month;
+        String url = path + year + "/" + month;
 
-         return client
-                 .target(domain)
+         return client.target(domain)
                  .path(url)
                  .request(MediaType.APPLICATION_JSON)
                  .get(Budget.class);
@@ -62,13 +61,21 @@ public class BudgetRESTConsoleClient {
 
     }
 
-     public ArrayList<Expense> getExpenses(int year, int month){
-        return null;
-     }
+    public static ArrayList<Expense> getExpenses(int year, int month){
+        Client client = ClientBuilder.newClient();
+        String path="/expenses/";
+        String url =  path + year + "/" + month;
+
+            ArrayList<Expense> expenseArrayList = client
+                    .target(domain)
+                    .path(url)
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(Response.class)
+                    .readEntity(new GenericType<List<Expense>>(){});
+            return expenseArrayList;
+    }
 
      public void updateExpenses(ArrayList<Expense> expenses){
-        
-
      }
 
 }
