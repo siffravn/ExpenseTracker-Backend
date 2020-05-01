@@ -1,16 +1,20 @@
 package Console;
+import DTO.Budget;
+import DTO.Expense;
 import DTO.User;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class BudgetRESTConsoleClient {
 
-    static String domain ="http://localhost:3344";
-    static String clientID;
+    static String domain ="http://localhost:3344"; // TODO change when server is deployed
+    static User user;
+
     public static void main(String[] args) {
         Client client = ClientBuilder.newClient();
         login(client);
@@ -39,4 +43,21 @@ public class BudgetRESTConsoleClient {
 
         System.out.println("Your username is: " + user.username);
      }
+
+     public Budget getBudget(int year, int month){
+        return null;
+     }
+
+    public void updateBudget(Budget budget){
+
+    }
+
+     public ArrayList<Expense> getExpenses(int year, int month){
+        return null;
+     }
+
+     public void updateExpenses(ArrayList<Expense> expenses){
+
+     }
+
 }
