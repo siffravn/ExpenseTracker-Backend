@@ -21,7 +21,6 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(origins = {"https://expense-tracker-dfe53.web.app/", "http://localhost:4200"})
 @RestController
 public class DBController {
-    MockedBudgetData mockedBudgetData = MockedBudgetData.getInstance();
     MockedCategoryData mockedCategoryData = MockedCategoryData.getInstance();
     FireBaseController fireBaseController = FireBaseController.getInstance();
 
@@ -74,6 +73,7 @@ public class DBController {
 
     // TODO in use?
     @GetMapping("/category")
+    // TODO: this still uses mocked data?
     public List<Category> index2() {return mockedCategoryData.fetchCategories();
     }
 
