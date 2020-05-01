@@ -25,6 +25,36 @@ public class ExpenseTracker {
         System.out.println("Welcome to ExpenseTracker " + user.firstName);
     }
 
+    private void menu(){
+        Scanner scanner = new Scanner(System.in);
+        int input = scanner.nextInt();
+        switch (input) {
+            case 1:
+                getBudget();
+                break;
+
+            case 2:
+                getExpenses();
+                break;
+
+            case 3:
+                updateBudget();
+                break;
+
+            case 4:
+                updateExpense();
+                break;
+
+            case 5:
+                System.exit(0);
+                break;
+
+            default:
+                System.out.println("Invalid input");
+                break;
+        }
+    }
+
     private void login(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter your login information:");
@@ -73,6 +103,16 @@ public class ExpenseTracker {
         }catch (Exception e){
             System.out.println("Error");
         }
+    }
+
+    // TODO
+    private void updateBudget(){
+        System.out.println("To be implemented");
+    }
+
+    // TODO
+    private void updateExpense(){
+        System.out.println("To be implemented");
     }
 
 }
