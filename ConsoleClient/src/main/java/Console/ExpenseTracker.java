@@ -2,6 +2,7 @@ package Console;
 
 import DTO.*;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,9 +27,10 @@ public class ExpenseTracker {
     }
 
     private void menu(){
-        Scanner scanner = new Scanner(System.in);
-        int input = scanner.nextInt();
-        switch (input) {
+
+        int selected = UI.menu();
+
+        switch (selected) {
             case 1:
                 getBudget();
                 break;
@@ -56,14 +58,7 @@ public class ExpenseTracker {
     }
 
     private void login(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter your login information:");
-        System.out.println("Username: ");
-        String username = scanner.next();
-        System.out.println("Password: ");
-        String password = scanner.next();
-
-        LogIn login = new LogIn(username, password);
+        LogIn login = UI.logIn();
 
         try{
             user = backendService.login(login);
@@ -74,12 +69,10 @@ public class ExpenseTracker {
     }
 
     private void getBudget(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter desired year and moth:");
-        System.out.println("Year: ");
-        int year = scanner.nextInt();
-        System.out.println("Month: ");
-        int month = scanner.nextInt();
+
+        YearMonth yearMonth = UI.yearMonth();
+        int year = yearMonth.getYear();
+        int month = yearMonth.getMonthValue();
 
         try{
             budget = backendService.getBudget(year, month);
@@ -90,12 +83,9 @@ public class ExpenseTracker {
     }
 
     private void getExpenses(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter desired year and moth:");
-        System.out.println("Year: ");
-        int year = scanner.nextInt();
-        System.out.println("Month: ");
-        int month = scanner.nextInt();
+        YearMonth yearMonth = UI.yearMonth();
+        int year = yearMonth.getYear();
+        int month = yearMonth.getMonthValue();
 
         try{
             expenses = backendService.getExpenses(year, month);
