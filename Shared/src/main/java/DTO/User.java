@@ -11,6 +11,8 @@ public class User {
     public String lastName;
     public String passwordPlaceholder;
 
+    public User(){}
+
     public User(Bruger bruger){
         username = bruger.brugernavn;
         firstName = bruger.fornavn;
