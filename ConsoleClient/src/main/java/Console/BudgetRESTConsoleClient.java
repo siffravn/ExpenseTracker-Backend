@@ -45,7 +45,17 @@ public class BudgetRESTConsoleClient {
      }
 
      public Budget getBudget(int year, int month){
-        return null;
+
+        Client client = ClientBuilder.newClient();
+        String path = "/budget/";
+
+        String url = domain + path + year + "/" + month;
+
+         return client
+                 .target(domain)
+                 .path(url)
+                 .request(MediaType.APPLICATION_JSON)
+                 .get(Budget.class);
      }
 
     public void updateBudget(Budget budget){
@@ -57,6 +67,7 @@ public class BudgetRESTConsoleClient {
      }
 
      public void updateExpenses(ArrayList<Expense> expenses){
+        
 
      }
 
