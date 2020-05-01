@@ -2,6 +2,7 @@ package Console;
 import DTO.Budget;
 import DTO.Expense;
 import DTO.User;
+import org.eclipse.persistence.sessions.Login;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
@@ -15,15 +16,13 @@ public class BudgetRESTConsoleClient {
     private String domain ="http://localhost:3344"; // TODO change when server is deployed
     private Client client = ClientBuilder.newClient();
 
-    public User login(String username, String password) {
-
-        LogIn logIn = new LogIn(username,password);
+    public User login(LogIn login) {
 
         return client
                 .target(domain)
                 .path("/login")
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.entity(logIn, MediaType.APPLICATION_JSON))
+                .post(Entity.entity(login, MediaType.APPLICATION_JSON))
                 .readEntity(User.class);
      }
 
