@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-@CrossOrigin(origins = {"https://expense-tracker-dfe53.web.app/", "http://localhost:4200"})
+@CrossOrigin(origins = {"*", "http://localhost:4200"})
 @RestController
 public class DBController {
     MockedCategoryData mockedCategoryData = MockedCategoryData.getInstance();
