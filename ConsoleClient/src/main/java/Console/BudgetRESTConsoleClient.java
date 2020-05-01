@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 public class BudgetRESTConsoleClient {
 
-    /**
     static String domain ="http://localhost:3344";
     static String clientID;
     public static void main(String[] args) {
@@ -38,42 +37,5 @@ public class BudgetRESTConsoleClient {
         String result = response.readEntity(String.class);
 
         System.out.println(result);
-    }
-     */
-
-    static String domain = "http://localhost:3344";
-    static String clientID;
-
-    public static void main(String[] args) {
-        Client client = ClientBuilder.newClient();
-        run(client);
-    }
-
-    private static void run(Client client) {
-        login(client);
-        System.out.println("Velkommen til Expense Tracker!");
-    }
-
-    private static void login(Client client) {
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Login:\nBrugernavn:");
-        String userID = scanner.next();
-        System.out.println("Adgangskode:");
-        String password = scanner.next();
-
-        String path = "/login";
-        String url = domain + path + "?username=" + userID + "&password=" + password;
-
-        Response response = client.target(url).request().get();
-        String result = response.readEntity(String.class);
-
-        if (result.equals("login successful")){
-            clientID = userID;
-            System.out.println(result);
-        } else {
-            System.out.println(result);
-            login(client);
-        }
-    }
+     }
 }
