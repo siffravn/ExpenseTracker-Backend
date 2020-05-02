@@ -110,11 +110,9 @@ public class ExpenseTracker {
 
     private void getExpenses(){
         YearMonth yearMonth = UI.yearMonth();
-        int year = yearMonth.getYear();
-        int month = yearMonth.getMonthValue();
 
         try{
-            expenses = backendService.getExpenses(year, month);
+            expenses = backendService.getExpenses(user.username, yearMonth);
 
         }catch (Exception e){
             System.out.println("Error");

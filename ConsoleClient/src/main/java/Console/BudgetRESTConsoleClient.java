@@ -46,18 +46,21 @@ public class BudgetRESTConsoleClient {
 
     }
 
-    public static ArrayList<Expense> getExpenses(int year, int month){
-        Client client = ClientBuilder.newClient();
-        String path="/expenses/";
-        String url =  path + year + "/" + month;
+    public ArrayList<Expense> getExpenses(String id, YearMonth yearMonth){
 
-            ArrayList<Expense> expenseArrayList = client
-                    .target(domain)
-                    .path(url)
-                    .request(MediaType.APPLICATION_JSON)
-                    .get(Response.class)
-                    .readEntity(new GenericType<ArrayList<Expense>>(){});
-            return expenseArrayList;
+        int year = yearMonth.getYear();
+        int month = yearMonth.getMonthValue();
+
+        String path = id + "/expenses/" + year + "/" + month;
+
+        ArrayList<Expense> expenseArrayList = client
+                .target(domain)
+                .path(path)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Response.class)
+                .readEntity(new GenericType<ArrayList<Expense>>(){});
+
+        return expenseArrayList;
     }
 
      public void updateExpenses(ArrayList<Expense> expenses){
