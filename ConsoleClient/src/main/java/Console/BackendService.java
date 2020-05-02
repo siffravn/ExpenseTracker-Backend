@@ -42,6 +42,10 @@ public class BackendService {
 
     public void updateBudget(String id, Budget budget){
 
+        String path = id + "/budget/" + budget.getYear() +"/" + budget.getMonth();
+         client.target(domain).path(path)
+                 .request(MediaType.APPLICATION_JSON)
+                 .post(Entity.entity(budget, MediaType.APPLICATION_JSON));
     }
 
     public ArrayList<Expense> getExpenses(String id, YearMonth yearMonth){
@@ -60,6 +64,12 @@ public class BackendService {
     }
 
      public void updateExpenses(String id, YearMonth yearMonth, ArrayList<Expense> expenses){
-     }
+         String path = id + "/expenses/" + yearMonth.getYear() +"/" + yearMonth.getMonth();
+
+         client.target(domain).path(path)
+                 .request(MediaType.APPLICATION_JSON)
+                 .put(Entity.entity(expenses, MediaType.APPLICATION_JSON));
+
+    }
 
 }
