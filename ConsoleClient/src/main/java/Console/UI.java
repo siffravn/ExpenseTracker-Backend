@@ -59,10 +59,13 @@ public class UI {
             sb
                     .append("Budget for ")
                     .append(budget.getMonth()).append("-").append(budget.getYear()).append("\n");
+            int i = 0;
             for(BudgetPost bp : budget.getPosts()){
                 sb
+                        .append(i).append(" ")
                         .append(bp.getCategory()).append(": ")
                         .append(bp.getAmount()).append("\n");
+                i++;
             }
         }
 
@@ -76,12 +79,15 @@ public class UI {
             sb.append("No expenses for selected month!");
         }
         else {
+            int i = 0;
             for (Expense e : expenses){
                 sb
-                        .append(e.getCategory()).append(" ")
+                        .append(i).append(" ")
+                        .append(e.getCategory()).append(": ")
                         .append(e.getDate()).append(" ")
                         .append(e.getAmount()).append(" ")
                         .append(e.getNote()).append("\n");
+                i++;
             }
         }
         System.out.println(sb.toString());
