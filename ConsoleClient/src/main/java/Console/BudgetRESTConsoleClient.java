@@ -2,13 +2,14 @@ package Console;
 import DTO.Budget;
 import DTO.Expense;
 import DTO.User;
-import org.eclipse.persistence.sessions.Login;
 
 import javax.ws.rs.client.*;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -45,13 +46,21 @@ public class BudgetRESTConsoleClient {
 
     }
 
-     public ArrayList<Expense> getExpenses(int year, int month){
-        return null;
-     }
+    public static ArrayList<Expense> getExpenses(int year, int month){
+        Client client = ClientBuilder.newClient();
+        String path="/expenses/";
+        String url =  path + year + "/" + month;
+
+            ArrayList<Expense> expenseArrayList = client
+                    .target(domain)
+                    .path(url)
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(Response.class)
+                    .readEntity(new GenericType<ArrayList<Expense>>(){});
+            return expenseArrayList;
+    }
 
      public void updateExpenses(ArrayList<Expense> expenses){
-        
-
      }
 
 }
