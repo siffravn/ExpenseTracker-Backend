@@ -25,6 +25,10 @@ public class UI {
         return selected;
     }
 
+    public static int editBudgetMenu(){
+        return 0;
+    }
+
     public static LogIn logIn(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter your login information:");

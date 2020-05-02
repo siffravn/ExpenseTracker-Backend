@@ -4,6 +4,7 @@ import DTO.*;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ExpenseTracker {
 
@@ -59,11 +60,11 @@ public class ExpenseTracker {
                 break;
 
             case 3:
-                updateBudget();
+                budgetMenu();
                 break;
 
             case 4:
-                updateExpense();
+                expenseMenu();
                 break;
 
             case 5:
@@ -74,6 +75,10 @@ public class ExpenseTracker {
                 System.out.println("Invalid input");
                 break;
         }
+    }
+
+    private void expenseMenu() {
+
     }
 
     private void login(){
@@ -107,9 +112,75 @@ public class ExpenseTracker {
         }
     }
 
-    // TODO
-    private void updateBudget(){
-        System.out.println("To be implemented");
+    private void budgetMenu(){
+
+        int selected = 0;
+        boolean h = true;
+        while (h){
+            switch (selected){
+                case 1:
+                    addBudgetPost();
+                    break;
+                case 2:
+                    updateBudgetPost();
+                    break;
+                case 3:
+                    deleteBudgetPost();
+                    break;
+                case 4:
+                    updateBudget();
+                    break;
+                case 5:
+                    getBudget(yearMonth);
+                    h = false;
+                    break;
+                default:
+                    System.out.println("Invalid input");
+                    break;
+            }
+            UI.displayBudget(budget);
+        }
+
+
+    }
+
+    private void deleteBudgetPost() {
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+
+        budget.getPosts().remove(i);
+    }
+
+    private void updateBudget() {
+        try {
+            backendService.updateBudget(user.username, budget);
+        }
+        catch (Exception e){
+            System.out.println("Error");
+        }
+    }
+
+    private void updateBudgetPost() {
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+
+        System.out.println("Amount");
+        int amount = scanner.nextInt();
+
+        budget.getPosts().get(i).setAmount(amount);
+    }
+
+    private void addBudgetPost() {
+        // TODO move to UI
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Category");
+        String category = scanner.next();
+        System.out.println("Amount");
+        int amount = scanner.nextInt();
+
+        BudgetPost budgetPost = new BudgetPost(category, amount);
+
+        budget.addPost(budgetPost);
     }
 
     // TODO
