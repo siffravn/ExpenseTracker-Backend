@@ -7,8 +7,19 @@ public class UI {
 
     public static int menu(){
         StringBuilder menu = new StringBuilder();
+        menu.append("Menu\n");
+        menu.append("1 ").append("View budget\n");
+        menu.append("2 ").append("View expenses\n");
+        menu.append("3 ").append("Update budget\n");
+        menu.append("4 ").append("Update expense\n");
+        menu.append("5 ").append("Exit Expense Tracker\n");
 
-        return 0;
+        System.out.println(menu.toString());
+
+        Scanner scanner = new Scanner(System.in);
+        int selected = scanner.nextInt();
+
+        return selected;
     }
 
     public static LogIn logIn(){

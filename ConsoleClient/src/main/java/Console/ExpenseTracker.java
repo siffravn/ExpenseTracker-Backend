@@ -12,6 +12,7 @@ public class ExpenseTracker {
     Budget budget;
     ArrayList<Expense> expenses;
     BudgetRESTConsoleClient backendService = new BudgetRESTConsoleClient();
+    boolean run = true;
 
     public void run(){
         int count = 0;
@@ -24,6 +25,11 @@ public class ExpenseTracker {
         if (user == null) return;
 
         System.out.println("Welcome to ExpenseTracker " + user.firstName);
+
+        while (run){
+            menu();
+        }
+        System.out.println("Goodbye " + user.firstName);
     }
 
     private void menu(){
@@ -48,7 +54,7 @@ public class ExpenseTracker {
                 break;
 
             case 5:
-                System.exit(0);
+                run = false;
                 break;
 
             default:
