@@ -9,8 +9,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 
 public class BackendService {
@@ -42,7 +40,7 @@ public class BackendService {
                  .get(Budget.class);
      }
 
-    public void updateBudget(Budget budget){
+    public void updateBudget(String id, Budget budget){
 
     }
 
@@ -53,17 +51,15 @@ public class BackendService {
 
         String path = id + "/expenses/" + year + "/" + month;
 
-        ArrayList<Expense> expenseArrayList = client
+        return client
                 .target(domain)
                 .path(path)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class)
                 .readEntity(new GenericType<ArrayList<Expense>>(){});
-
-        return expenseArrayList;
     }
 
-     public void updateExpenses(ArrayList<Expense> expenses){
+     public void updateExpenses(String id, YearMonth yearMonth, ArrayList<Expense> expenses){
      }
 
 }
