@@ -40,6 +40,7 @@ public class BackendService {
                  .get(Budget.class);
      }
 
+     // TODO database is inconsistent? - debugged and confirmed correct data is sent to server...
     public void updateBudget(String id, Budget budget){
 
         String path = id + "/budget/" + budget.getYear() +"/" + budget.getMonth();
@@ -63,6 +64,7 @@ public class BackendService {
                 .readEntity(new GenericType<ArrayList<Expense>>(){});
     }
 
+    // TODO does not work...
      public void updateExpenses(String id, YearMonth yearMonth, ArrayList<Expense> expenses){
          String path = id + "/expenses/" + yearMonth.getYear() +"/" + yearMonth.getMonth();
 

@@ -24,7 +24,7 @@ public class ExpenseTracker {
         while (count < 4);
         if (user == null) return;
 
-        System.out.println("Welcome to ExpenseTracker " + user.firstName);
+        System.out.println("Welcome to ExpenseTracker " + user.firstName + "\n");
 
         getBudget(yearMonth);
         getExpenses(yearMonth);

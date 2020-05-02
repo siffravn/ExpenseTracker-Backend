@@ -29,12 +29,12 @@ public class UI {
 
     public static int editMenu(){
         StringBuilder editBudgetMenu = new StringBuilder();
-        editBudgetMenu.append("Budget Menu\n");
-        editBudgetMenu.append("1").append("Add a new Post\n");
-        editBudgetMenu.append("2").append("Update a Post\n");
-        editBudgetMenu.append("3").append("Delete a Post\n");
-        editBudgetMenu.append("4").append("Save all changes\n");
-        editBudgetMenu.append("5").append("Cancel all changes\n");
+        editBudgetMenu.append("Edit Menu\n");
+        editBudgetMenu.append("1 ").append("Add a new Post\n");
+        editBudgetMenu.append("2 ").append("Update a Post\n");
+        editBudgetMenu.append("3 ").append("Delete a Post\n");
+        editBudgetMenu.append("4 ").append("Save all changes\n");
+        editBudgetMenu.append("5 ").append("Cancel all changes\n");
 
         System.out.println(editBudgetMenu.toString());
 
@@ -95,10 +95,11 @@ public class UI {
         StringBuilder sb = new StringBuilder();
 
         if(expenses.isEmpty()){
-            sb.append("No expenses for selected month!");
+            sb.append("No expenses for selected month! \n");
         }
         else {
             int i = 0;
+            sb.append("Expenses \n");
             for (Expense e : expenses){
                 sb
                         .append(i).append(" ")
@@ -132,6 +133,7 @@ public class UI {
 
     public static int getIndex() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Select index");
         int i = scanner.nextInt();
 
         return i;
