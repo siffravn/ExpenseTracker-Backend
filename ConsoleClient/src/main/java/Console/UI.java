@@ -11,10 +11,10 @@ public class UI {
     public static int menu(){
         StringBuilder menu = new StringBuilder();
         menu.append("Menu\n");
-        menu.append("1 ").append("View budget\n");
-        menu.append("2 ").append("View expenses\n");
-        menu.append("3 ").append("Update budget\n");
-        menu.append("4 ").append("Update expense\n");
+        menu.append("1 ").append("View current Budget and Expenses\n");
+        menu.append("2 ").append("View Budget and Expenses of choice\n");
+        menu.append("3 ").append("Update displayed budget\n");
+        menu.append("4 ").append("Update displayed expense\n");
         menu.append("5 ").append("Exit Expense Tracker\n");
 
         System.out.println(menu.toString());
@@ -52,13 +52,13 @@ public class UI {
 
         if (budget.getPosts().isEmpty()){
             sb
-                    .append("No budget for current month (")
-                    .append(budget.getMonth()).append("-").append(budget.getYear()).append(")\n");
+                    .append("No budget for ")
+                    .append(budget.getMonth()).append("-").append(budget.getYear()).append("\n");
         }
         else {
             sb
-                    .append("Budget for current month (")
-                    .append(budget.getMonth()).append("-").append(budget.getYear()).append(")\n");
+                    .append("Budget for ")
+                    .append(budget.getMonth()).append("-").append(budget.getYear()).append("\n");
             for(BudgetPost bp : budget.getPosts()){
                 sb
                         .append(bp.getCategory()).append(": ")
@@ -73,7 +73,7 @@ public class UI {
         StringBuilder sb = new StringBuilder();
 
         if(expenses.isEmpty()){
-            sb.append("No expenses for current month!");
+            sb.append("No expenses for selected month!");
         }
         else {
             for (Expense e : expenses){

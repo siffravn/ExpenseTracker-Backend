@@ -10,6 +10,7 @@ public class ExpenseTracker {
     User user;
     Budget budget;
     ArrayList<Expense> expenses;
+    YearMonth yearMonth = YearMonth.now();
     BackendService backendService = new BackendService();
     boolean run = true;
 
@@ -25,8 +26,10 @@ public class ExpenseTracker {
 
         System.out.println("Welcome to ExpenseTracker " + user.firstName);
 
-        getCurrentBudget();
-        getCurrentExpenses();
+        getBudget(yearMonth);
+        getExpenses(yearMonth);
+        UI.displayBudget(budget);
+        UI.displayExpenses(expenses);
 
         while (run){
             menu();
@@ -40,11 +43,19 @@ public class ExpenseTracker {
 
         switch (selected) {
             case 1:
-                getBudget();
+                yearMonth = YearMonth.now();
+                getBudget(yearMonth);
+                getExpenses(yearMonth);
+                UI.displayBudget(budget);
+                UI.displayExpenses(expenses);
                 break;
 
             case 2:
-                getExpenses();
+                yearMonth = UI.yearMonth();
+                getBudget(yearMonth);
+                getExpenses(yearMonth);
+                UI.displayBudget(budget);
+                UI.displayExpenses(expenses);
                 break;
 
             case 3:
@@ -76,61 +87,24 @@ public class ExpenseTracker {
         }
     }
 
-    private void getCurrentBudget(){
-
-        YearMonth yearMonth = YearMonth.now();
+    private void getBudget(YearMonth yearMonth){
 
         try{
             budget = backendService.getBudget(user.username, yearMonth);
 
         }catch (Exception e){
             System.out.println("Error");
-            return;
         }
-
-        UI.displayBudget(budget);
     }
 
-    private void getBudget(){
-
-        YearMonth yearMonth = UI.yearMonth();
-
-        try{
-            budget = backendService.getBudget(user.username, yearMonth);
-
-        }catch (Exception e){
-            System.out.println("Error");
-            return;
-        }
-
-        UI.displayBudget(budget);
-    }
-
-    private void getCurrentExpenses(){
-
-        YearMonth yearMonth = YearMonth.now();
+    private void getExpenses(YearMonth yearMonth){
 
         try{
             expenses = backendService.getExpenses(user.username, yearMonth);
 
         }catch (Exception e){
             System.out.println("Error");
-            return;
         }
-        UI.displayExpenses(expenses);
-    }
-
-    private void getExpenses(){
-        YearMonth yearMonth = UI.yearMonth();
-
-        try{
-            expenses = backendService.getExpenses(user.username, yearMonth);
-
-        }catch (Exception e){
-            System.out.println("Error");
-            return;
-        }
-        UI.displayExpenses(expenses);
     }
 
     // TODO
