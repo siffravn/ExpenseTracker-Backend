@@ -84,5 +84,6 @@ public class UI {
                         .append(e.getNote()).append("\n");
             }
         }
+        System.out.println(sb.toString());
     }
 }
