@@ -26,7 +26,20 @@ public class UI {
     }
 
     public static int editBudgetMenu(){
-        return 0;
+        StringBuilder editBudgetMenu = new StringBuilder();
+        editBudgetMenu.append("Budget Menu\n");
+        editBudgetMenu.append("1").append("Add a new Budget Post");
+        editBudgetMenu.append("2").append("Update one of displayed Budget Posts");
+        editBudgetMenu.append("3").append("Delete one of displayed Budget Posts");
+        editBudgetMenu.append("4").append("Cancel any changes");
+        editBudgetMenu.append("5").append("Get budget");
+
+        System.out.println(editBudgetMenu.toString());
+
+        Scanner scanner = new Scanner(System.in);
+        int selected = scanner.nextInt();
+        
+        return selected;
     }
 
     public static LogIn logIn(){
