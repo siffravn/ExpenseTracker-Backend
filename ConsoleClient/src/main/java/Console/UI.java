@@ -3,6 +3,7 @@ package Console;
 import DTO.*;
 
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UI {
@@ -49,17 +50,39 @@ public class UI {
     public static void displayBudget(Budget budget) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Budget ").append(budget.getMonth()).append(" ").append(budget.getYear());
         if (budget.getPosts().isEmpty()){
-            sb.append(": ").append("No budget posts!");
+            sb
+                    .append("No budget for current month (")
+                    .append(budget.getMonth()).append("-").append(budget.getYear()).append(")\n");
         }
         else {
-            sb.append("\n");
+            sb
+                    .append("Budget for current month (")
+                    .append(budget.getMonth()).append("-").append(budget.getYear()).append(")\n");
             for(BudgetPost bp : budget.getPosts()){
-                sb.append(bp.getCategory()).append(": ").append(bp.getAmount()).append("\n");
+                sb
+                        .append(bp.getCategory()).append(": ")
+                        .append(bp.getAmount()).append("\n");
             }
         }
 
         System.out.println(sb.toString());
+    }
+
+    public static void displayExpenses(ArrayList<Expense> expenses){
+        StringBuilder sb = new StringBuilder();
+
+        if(expenses.isEmpty()){
+            sb.append("No expenses for current month!");
+        }
+        else {
+            for (Expense e : expenses){
+                sb
+                        .append(e.getCategory()).append(" ")
+                        .append(e.getDate()).append(" ")
+                        .append(e.getAmount()).append(" ")
+                        .append(e.getNote()).append("\n");
+            }
+        }
     }
 }
