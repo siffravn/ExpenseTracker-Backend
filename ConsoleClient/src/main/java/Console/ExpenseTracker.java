@@ -4,6 +4,8 @@ import DTO.*;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class ExpenseTracker {
@@ -25,6 +27,8 @@ public class ExpenseTracker {
         if (user == null) return;
 
         System.out.println("Welcome to ExpenseTracker " + user.firstName);
+
+        getCurrentBudget();
 
         while (run){
             menu();
@@ -74,6 +78,21 @@ public class ExpenseTracker {
         }
     }
 
+    private void getCurrentBudget(){
+
+        YearMonth yearMonth = YearMonth.now();
+
+        try{
+            budget = backendService.getBudget(user.username, yearMonth);
+
+        }catch (Exception e){
+            System.out.println("Error");
+            return;
+        }
+
+        UI.displayBudget(budget);
+    }
+
     private void getBudget(){
 
         YearMonth yearMonth = UI.yearMonth();
@@ -83,7 +102,10 @@ public class ExpenseTracker {
 
         }catch (Exception e){
             System.out.println("Error");
+            return;
         }
+
+        UI.displayBudget(budget);
     }
 
     private void getExpenses(){
