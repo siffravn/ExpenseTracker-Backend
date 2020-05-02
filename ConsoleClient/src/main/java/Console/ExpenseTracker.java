@@ -4,16 +4,13 @@ import DTO.*;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
 
 public class ExpenseTracker {
 
     User user;
     Budget budget;
     ArrayList<Expense> expenses;
-    BudgetRESTConsoleClient backendService = new BudgetRESTConsoleClient();
+    BackendService backendService = new BackendService();
     boolean run = true;
 
     public void run(){

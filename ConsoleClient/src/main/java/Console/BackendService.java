@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class BudgetRESTConsoleClient {
+public class BackendService {
 
     private String domain ="http://localhost:3344"; // TODO change when server is deployed
     private Client client = ClientBuilder.newClient();
