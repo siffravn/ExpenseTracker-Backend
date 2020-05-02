@@ -77,10 +77,6 @@ public class ExpenseTracker {
         }
     }
 
-    private void expenseMenu() {
-
-    }
-
     private void login(){
         LogIn login = UI.logIn();
 
@@ -115,8 +111,8 @@ public class ExpenseTracker {
     private void budgetMenu(){
 
         int selected = 0;
-        boolean h = true;
-        while (h){
+        boolean editing = true;
+        while (editing){
             switch (selected){
                 case 1:
                     addBudgetPost();
@@ -129,10 +125,11 @@ public class ExpenseTracker {
                     break;
                 case 4:
                     updateBudget();
+                    editing = false;
                     break;
                 case 5:
                     getBudget(yearMonth);
-                    h = false;
+                    editing = false;
                     break;
                 default:
                     System.out.println("Invalid input");
@@ -173,12 +170,11 @@ public class ExpenseTracker {
         budget.addPost(budgetPost);
     }
 
-    // TODO
-    private void ExpenseMenu(){
+    private void expenseMenu(){
 
         int selected = 0;
-        boolean h = true;
-        while (h) {
+        boolean editing = true;
+        while (editing) {
             switch (selected) {
                 case 1:
                     addExpense();
@@ -191,10 +187,11 @@ public class ExpenseTracker {
                     break;
                 case 4:
                     updateExpenseList();
+                    editing = false;
                     break;
                 case 5:
                     getExpenses(yearMonth);
-                    h = false;
+                    editing = false;
                     break;
                 default:
                     System.out.println("Invalid input");
