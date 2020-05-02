@@ -174,8 +174,91 @@ public class ExpenseTracker {
     }
 
     // TODO
-    private void updateExpense(){
-        System.out.println("To be implemented");
+    private void ExpenseMenu(){
+
+        int selected = 0;
+        boolean h = true;
+        while (h) {
+            switch (selected) {
+                case 1:
+                    addExpense();
+                    break;
+                case 2:
+                    updateExpense();
+                    break;
+                case 3:
+                    deleteExpense();
+                    break;
+                case 4:
+                    updateExpenseList();
+                    break;
+                case 5:
+                    getExpenses(yearMonth);
+                    h = false;
+                    break;
+                default:
+                    System.out.println("Invalid input");
+                    break;
+            }
+
+            UI.displayExpenses(expenses);
+
+        }
+    }
+
+    private void updateExpenseList() {
+        try{
+            backendService.updateExpenses(user.username, yearMonth, expenses);
+        }
+        catch (Exception e) {
+           System.out.println( "Error");
+        }
+    }
+
+    private void deleteExpense() {
+
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+        expenses.remove(i);
+    }
+
+    private void updateExpense() {
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+
+        System.out.println("Amount");
+        int amount = scanner.nextInt();
+        expenses.get(i).setAmount(amount);
+
+        System.out.println("Category");
+        String category = scanner.next();
+        expenses.get(i).setCategory(category);
+
+        System.out.println("Date");
+        String date = scanner.next();
+        expenses.get(i).setCategory(date);
+
+        System.out.println("Note (Optional)");
+        String note = scanner.next();
+        expenses.get(i).setCategory(note);
+
+    }
+
+    private void addExpense() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Amount");
+        double amount = scanner.nextDouble();
+        System.out.println("Category");
+        String category = scanner.next();
+        System.out.println("Date");
+        String date = scanner.next();
+        System.out.println("Note (Optional)");
+        String note = scanner.next();
+
+        Expense expense = new Expense(amount, category, date, note);
+
+        expenses.add(expense);
     }
 
 }
