@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class UI {
 
+    Scanner scanner = new Scanner(System.in);
+
     public static int menu(){
         StringBuilder menu = new StringBuilder();
         menu.append("Menu\n");
@@ -25,12 +27,12 @@ public class UI {
         return selected;
     }
 
-    public static int editBudgetMenu(){
+    public static int editMenu(){
         StringBuilder editBudgetMenu = new StringBuilder();
         editBudgetMenu.append("Budget Menu\n");
-        editBudgetMenu.append("1").append("Add a new Budget Post\n");
-        editBudgetMenu.append("2").append("Update a Budget Post\n");
-        editBudgetMenu.append("3").append("Delete a Budget Post\n");
+        editBudgetMenu.append("1").append("Add a new Post\n");
+        editBudgetMenu.append("2").append("Update a Post\n");
+        editBudgetMenu.append("3").append("Delete a Post\n");
         editBudgetMenu.append("4").append("Save all changes\n");
         editBudgetMenu.append("5").append("Cancel all changes\n");
 
@@ -108,5 +110,30 @@ public class UI {
             }
         }
         System.out.println(sb.toString());
+    }
+
+    public static BudgetPost getBudgetPost() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Category");
+        String category = scanner.next();
+        System.out.println("Amount");
+        int amount = scanner.nextInt();
+
+        return new BudgetPost(category, amount);
+    }
+
+    public static int getAmount() {
+        System.out.println("Amount");
+        Scanner scanner = new Scanner(System.in);
+        int amount = scanner.nextInt();
+
+        return amount;
+    }
+
+    public static int getIndex() {
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+
+        return i;
     }
 }

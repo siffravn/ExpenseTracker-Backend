@@ -145,8 +145,7 @@ public class ExpenseTracker {
     }
 
     private void deleteBudgetPost() {
-        Scanner scanner = new Scanner(System.in);
-        int i = scanner.nextInt();
+        int i = UI.getIndex();
 
         budget.getPosts().remove(i);
     }
@@ -161,24 +160,15 @@ public class ExpenseTracker {
     }
 
     private void updateBudgetPost() {
-        Scanner scanner = new Scanner(System.in);
-        int i = scanner.nextInt();
 
-        System.out.println("Amount");
-        int amount = scanner.nextInt();
+        int i = UI.getIndex();
+        int amount = UI.getAmount();
 
         budget.getPosts().get(i).setAmount(amount);
     }
 
     private void addBudgetPost() {
-        // TODO move to UI
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Category");
-        String category = scanner.next();
-        System.out.println("Amount");
-        int amount = scanner.nextInt();
-
-        BudgetPost budgetPost = new BudgetPost(category, amount);
+        BudgetPost budgetPost = UI.getBudgetPost();
 
         budget.addPost(budgetPost);
     }
