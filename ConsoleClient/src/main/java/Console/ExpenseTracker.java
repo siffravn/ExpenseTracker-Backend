@@ -26,6 +26,7 @@ public class ExpenseTracker {
         System.out.println("Welcome to ExpenseTracker " + user.firstName);
 
         getCurrentBudget();
+        getCurrentExpenses();
 
         while (run){
             menu();
@@ -105,6 +106,20 @@ public class ExpenseTracker {
         UI.displayBudget(budget);
     }
 
+    private void getCurrentExpenses(){
+
+        YearMonth yearMonth = YearMonth.now();
+
+        try{
+            expenses = backendService.getExpenses(user.username, yearMonth);
+
+        }catch (Exception e){
+            System.out.println("Error");
+            return;
+        }
+        UI.displayExpenses(expenses);
+    }
+
     private void getExpenses(){
         YearMonth yearMonth = UI.yearMonth();
 
@@ -113,7 +128,9 @@ public class ExpenseTracker {
 
         }catch (Exception e){
             System.out.println("Error");
+            return;
         }
+        UI.displayExpenses(expenses);
     }
 
     // TODO
