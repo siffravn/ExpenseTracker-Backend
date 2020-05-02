@@ -7,6 +7,7 @@ import org.eclipse.persistence.sessions.Login;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,16 +27,16 @@ public class BudgetRESTConsoleClient {
                 .readEntity(User.class);
      }
 
-     public Budget getBudget(int year, int month){
+     public Budget getBudget(String id, YearMonth yearMonth){
 
-        Client client = ClientBuilder.newClient();
-        String path = "/budget/";
+        int year = yearMonth.getYear();
+        int month = yearMonth.getMonthValue();
 
-        String url = domain + path + year + "/" + month;
+        String path = id + "/budget/" + year + "/" + month;
 
          return client
                  .target(domain)
-                 .path(url)
+                 .path(path)
                  .request(MediaType.APPLICATION_JSON)
                  .get(Budget.class);
      }

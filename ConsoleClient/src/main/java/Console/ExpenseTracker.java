@@ -77,11 +77,9 @@ public class ExpenseTracker {
     private void getBudget(){
 
         YearMonth yearMonth = UI.yearMonth();
-        int year = yearMonth.getYear();
-        int month = yearMonth.getMonthValue();
 
         try{
-            budget = backendService.getBudget(year, month);
+            budget = backendService.getBudget(user.username, yearMonth);
 
         }catch (Exception e){
             System.out.println("Error");
