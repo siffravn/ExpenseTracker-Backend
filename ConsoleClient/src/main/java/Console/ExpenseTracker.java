@@ -4,7 +4,6 @@ import DTO.*;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ExpenseTracker {
 
@@ -109,10 +108,9 @@ public class ExpenseTracker {
     }
 
     private void budgetMenu(){
-
-        int selected = 0;
         boolean editing = true;
         while (editing){
+            int selected = UI.editMenu();
             switch (selected){
                 case 1:
                     addBudgetPost();
@@ -137,8 +135,6 @@ public class ExpenseTracker {
             }
             UI.displayBudget(budget);
         }
-
-
     }
 
     private void deleteBudgetPost() {
@@ -171,10 +167,9 @@ public class ExpenseTracker {
     }
 
     private void expenseMenu(){
-
-        int selected = 0;
         boolean editing = true;
         while (editing) {
+            int selected = UI.editMenu();
             switch (selected) {
                 case 1:
                     addExpense();
@@ -213,47 +208,22 @@ public class ExpenseTracker {
     }
 
     private void deleteExpense() {
+        int i = UI.getIndex();
 
-        Scanner scanner = new Scanner(System.in);
-        int i = scanner.nextInt();
         expenses.remove(i);
     }
 
     private void updateExpense() {
-        Scanner scanner = new Scanner(System.in);
-        int i = scanner.nextInt();
+        int i = UI.getIndex();
+        Expense expense = UI.getExpense();
 
-        System.out.println("Amount");
-        int amount = scanner.nextInt();
-        expenses.get(i).setAmount(amount);
-
-        System.out.println("Category");
-        String category = scanner.next();
-        expenses.get(i).setCategory(category);
-
-        System.out.println("Date");
-        String date = scanner.next();
-        expenses.get(i).setCategory(date);
-
-        System.out.println("Note (Optional)");
-        String note = scanner.next();
-        expenses.get(i).setCategory(note);
+        expenses.set(i, expense);
 
     }
 
     private void addExpense() {
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Amount");
-        double amount = scanner.nextDouble();
-        System.out.println("Category");
-        String category = scanner.next();
-        System.out.println("Date");
-        String date = scanner.next();
-        System.out.println("Note (Optional)");
-        String note = scanner.next();
-
-        Expense expense = new Expense(amount, category, date, note);
+        Expense expense = UI.getExpense();
 
         expenses.add(expense);
     }

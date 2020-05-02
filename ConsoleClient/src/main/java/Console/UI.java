@@ -136,4 +136,27 @@ public class UI {
 
         return i;
     }
+
+    public static Expense getExpense() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Category");
+        String category = scanner.next();
+
+        System.out.println("Amount");
+        double amount = scanner.nextInt();
+
+        System.out.println("Year");
+        String year = scanner.next();
+        System.out.println("Month");
+        String month = scanner.next();
+        System.out.println("Date");
+        String day = scanner.next();
+        String date = year + "-" + month + "-" + day;
+
+        System.out.println("Note (Optional)");
+        String note = scanner.next();
+
+        return new Expense(amount, category, date, note);
+    }
 }
