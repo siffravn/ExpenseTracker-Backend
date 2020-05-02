@@ -1,5 +1,7 @@
 package Console;
 
+import DTO.*;
+
 import java.time.YearMonth;
 import java.util.Scanner;
 
@@ -42,5 +44,22 @@ public class UI {
         int month = scanner.nextInt();
 
         return YearMonth.of(year, month);
+    }
+
+    public static void displayBudget(Budget budget) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Budget ").append(budget.getMonth()).append(" ").append(budget.getYear());
+        if (budget.getPosts().isEmpty()){
+            sb.append(": ").append("No budget posts!");
+        }
+        else {
+            sb.append("\n");
+            for(BudgetPost bp : budget.getPosts()){
+                sb.append(bp.getCategory()).append(": ").append(bp.getAmount()).append("\n");
+            }
+        }
+
+        System.out.println(sb.toString());
     }
 }
