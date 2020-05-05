@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class BackendService {
 
-    private String domain ="http://localhost:3344"; // TODO change when server is deployed
+    private String domain ="http://dist.saluton.dk:3344";
     private Client client = ClientBuilder.newClient();
 
     public User login(LogIn login) {
