@@ -25,6 +25,7 @@ repositories {
 
 dependencies {
     compile project(':Shared')
+    compile 'io.javalin:javalin:3.8.0'
     compile 'com.google.firebase:firebase-admin:6.12.2'
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')

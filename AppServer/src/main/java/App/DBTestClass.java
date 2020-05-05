@@ -36,8 +36,11 @@ public class DBTestClass {
         budget.setPosts(posts);
 
 
-        //dbController.updateExpenses(expenses, "user100");
+        dbController.updateExpenses( "user100", 2023, 5, expenses);
         //dbController.deleteExpense("user100", expenses.get(1).getDate());
+
+
+
 
 
         ArrayList<Expense> expensesFromFB = dbController.getExpenses("user100");

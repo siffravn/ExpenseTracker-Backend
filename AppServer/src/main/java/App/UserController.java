@@ -3,13 +3,14 @@ package App;
 import DTO.User;
 import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.rmi.Brugeradmin;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.rmi.Naming;
 import java.util.Map;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*","http://localhost:4200"})
 @RestController
 public class UserController {
 
@@ -37,10 +38,10 @@ public class UserController {
             Brugeradmin admin = connectUserDB();
             Bruger bruger = admin.hentBruger(username, password);
 
-            return ResponseEntity.status(200).body(new User(bruger));
+            return ResponseEntity.status(HttpStatus.OK).body(new User(bruger));
 
         } catch (Exception e){
-            return ResponseEntity.status(403).body("error");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or password is incorrect. Please try again.");
         }
     }
 
