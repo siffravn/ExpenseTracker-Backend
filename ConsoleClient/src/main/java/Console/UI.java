@@ -44,6 +44,22 @@ public class UI {
         return selected;
     }
 
+    public static int editExpenseMenu(){
+        StringBuilder editBudgetMenu = new StringBuilder();
+        editBudgetMenu.append("Edit Menu\n");
+        editBudgetMenu.append("1 ").append("Add a new Expense\n");
+        editBudgetMenu.append("2 ").append("Update an Expense\n");
+        editBudgetMenu.append("3 ").append("Delete an Expense\n");
+        editBudgetMenu.append("4 ").append("Save all changes\n");
+        editBudgetMenu.append("5 ").append("Cancel all changes\n");
+
+        System.out.println(editBudgetMenu.toString());
+
+        Scanner scanner = new Scanner(System.in);
+        int selected = scanner.nextInt();
+
+        return selected;
+    }
     public static LogIn logIn(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter your login information:");

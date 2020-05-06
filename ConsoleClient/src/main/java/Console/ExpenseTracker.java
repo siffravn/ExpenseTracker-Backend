@@ -169,7 +169,7 @@ public class ExpenseTracker {
     private void expenseMenu(){
         boolean editing = true;
         while (editing) {
-            int selected = UI.editMenu();
+            int selected = UI.editExpenseMenu();
             switch (selected) {
                 case 1:
                     addExpense();
