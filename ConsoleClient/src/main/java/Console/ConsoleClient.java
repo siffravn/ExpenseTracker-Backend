@@ -1,6 +1,6 @@
 package Console;
 
-public class Main {
+public class ConsoleClient {
 
     public static void main(String[] args) {
         new ExpenseTracker().run();
